@@ -9,4 +9,12 @@ namespace Lab1
             Console.WriteLine("Hello World!");
         }
     }
+
+    public static class Lab1
+    {
+        public static int Add(int a, int b)
+        {
+            return a + b;
+        }
+    }
 }
