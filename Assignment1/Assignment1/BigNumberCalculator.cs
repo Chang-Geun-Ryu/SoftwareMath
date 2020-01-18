@@ -98,42 +98,42 @@ namespace Assignment1
             }
             else
             {
-                int number = Math.Abs(Int32.Parse(num));
-                int pow = 0;
-                bool first = true;
-                string sbinary = "";
+                int nNumber = Math.Abs(Int32.Parse(num));
+                int nPow = 0;
+                bool bFirst = true;
+                string sBinary = "";
 
                 while (true)
                 {
-                    if (first)
+                    if (bFirst)
                     {
-                        int value = (int)Math.Pow(2, pow);
-                        if ((number - value) > 0)
+                        int value = (int)Math.Pow(2, nPow);
+                        if ((nNumber - value) > 0)
                         {
-                            pow++;
+                            nPow++;
                         }
                         else
                         {
-                            first = false;
+                            bFirst = false;
                         }
                     }
                     else
                     {
-                        int value = (int)Math.Pow(2, pow);
-                        if ((number - value) >= 0)
+                        int value = (int)Math.Pow(2, nPow);
+                        if ((nNumber - value) >= 0)
                         {
-                            number -= value;
-                            
-                            sbinary += "1";
+                            nNumber -= value;
+
+                            sBinary += "1";
                         }
                         else
                         {
-                            sbinary += "0";
+                            sBinary += "0";
                         }
 
-                        pow--;
+                        nPow--;
 
-                        if (number <= 0 || pow < 0)
+                        if (nNumber <= 0 || nPow < 0)
                         {
                             break;
                         }
@@ -142,25 +142,45 @@ namespace Assignment1
                 
                 if (num.Contains('-'))
                 {
-                    sbinary = GetTwosComplementOrNull("0b" + sbinary);
+                    sBinary = GetTwosComplementOrNull("0b" + sBinary);
                 }
                 else
                 {
-                    sbinary = "0b" + sbinary;
+                    sBinary = "0b" + sBinary;
                 }
 
-                return sbinary;
+                return sBinary;
             }
             return null;
         }
 
         public static string ToHexOrNull(string num)
         {
+
             return null;
         }
 
         public static string ToDecimalOrNull(string num)
         {
+            if (num.Contains("0b"))
+            {
+                char[] chArray = num.ToCharArray();
+                int nIndex = chArray.Length - 1;
+                int nPow = 0;
+                int nValue = 0;
+
+                while (chArray[nIndex] != 'b')
+                {
+                    if (chArray[nIndex] == '1')
+                    {
+                        nValue += (int)Math.Pow(2, nPow);
+                    }
+
+                    nPow++;
+                }
+
+                return nValue.ToString();
+            }
             return null;
         }
 
