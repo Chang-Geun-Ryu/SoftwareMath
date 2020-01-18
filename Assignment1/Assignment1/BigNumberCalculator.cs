@@ -166,12 +166,14 @@ namespace Assignment1
             {
                 char[] chArray = num.ToCharArray();
                 int nIndex = chArray.Length - 1;
+                int nSign = 2;
                 int nPow = 0;
                 int nValue = 0;
 
-                while (chArray[nIndex] != 'b')
+                while (nSign < nIndex)
                 {
-                    if (chArray[nIndex] == '1')
+
+                    if (chArray[nIndex--] == '1')
                     {
                         nValue += (int)Math.Pow(2, nPow);
                     }
@@ -179,7 +181,11 @@ namespace Assignment1
                     nPow++;
                 }
 
-                return nValue.ToString();
+                //return nValue.ToString();
+            }
+            else if (num.Contains("0x"))
+            {
+
             }
             return null;
         }
