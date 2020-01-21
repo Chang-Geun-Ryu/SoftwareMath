@@ -7,6 +7,12 @@ namespace Assignment1
         static void Main(string[] args)
         {
 
+            //string s = BigNumberCalculator.getSumNumberASCII('5', '5');
+
+            int a = 16 << 1;
+
+            string aa = BigNumberCalculator.ToDecimalOrNull("0b011110001111010101011");
+
             //if ('1' > '2')
             //{
             //    Console.WriteLine("ddd");
