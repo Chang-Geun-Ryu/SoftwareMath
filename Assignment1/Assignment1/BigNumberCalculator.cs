@@ -5,13 +5,13 @@ namespace Assignment1
 {
     public class BigNumberCalculator
     {
-        private int nBitCount = 0;
-        private EMode mode = EMode.Binary;
+        private int mBitCount = 0;
+        private EMode Mode = EMode.Binary;
 
         public BigNumberCalculator(int bitCount, EMode mode)
         {
-            this.nBitCount = bitCount;
-            this.mode = mode;
+            this.mBitCount = bitCount;
+            this.Mode = mode;
         }
 
         public static string GetOnesComplementOrNull(string num)
@@ -21,7 +21,7 @@ namespace Assignment1
                 CharEnumerator ch = num.Substring(2).GetEnumerator();
                 string strBinary = "0b";
 
-                while(ch.MoveNext())
+                while(ch.MoveNext() == true)
                 {
                     if (ch.Current.Equals('0'))
                     {
@@ -44,6 +44,11 @@ namespace Assignment1
 
         public static string GetTwosComplementOrNull(string num)
         {
+            if (num.Contains("0b") == false || num.Length <= 2)
+            {
+                return null;
+            }
+
             string strOnce = GetOnesComplementOrNull(num);
 
             if (strOnce.Length > 0)
@@ -175,11 +180,11 @@ namespace Assignment1
         {
             bOverflow = false;
 
-            if (mode == EMode.Binary)
+            if (this.Mode == EMode.Binary)
             {
 
             }
-            else if (mode == EMode.Decimal)
+            else if (this.Mode == EMode.Decimal)
             {
                 if (checkDecimal(num1) == false || checkDecimal(num2) == false)
                 {
@@ -218,8 +223,6 @@ namespace Assignment1
             {
                 if (chArray[nIndex--] == '1')
                 {
-                    //nValue += 1 << nPow;
-
                     sValue = getSumDecimalString(sValue, getBinaryPower(nPow));
                 }
 
@@ -228,11 +231,10 @@ namespace Assignment1
 
             if (bNegative)
             {
-                //nValue = -nValue;
                 sValue = "-" + sValue;
             }
 
-            return sValue;//convertDecimalToString(nValue);
+            return sValue;
         }
 
         private static string getBinaryToHex(string num, bool bFlag = true)
@@ -241,45 +243,7 @@ namespace Assignment1
             //char[] chArray = num.ToCharArray();
             string sAddZero = "";
             char[] cHexArray = { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F' };
-            bool bBinary = false;
-
-            //if (bFlag)
-            {
-                //if (chArray.Length % 4 == 0)
-                //{
-                //    sAddZero = "0000";
-                //}
-                //else
-                //{
-                //    for (int i = 0; i < 4 - chArray.Length % 4; i++)
-                //    {
-                //        sAddZero = "0" + sAddZero;
-                //    }
-                //}
-
-                //if (chArray[0] == '1')
-                //{
-                //    chArray[0] = '0';
-                //    bBinary = true;
-                //}
-                //if (chArray.Length % 4 > 0)
-                //{
-                //    for (int nZero = 4 - chArray.Length % 4; nZero > 0; nZero--)
-                //    {
-                //        if (nZero == 1 && bBinary)
-                //        {
-                //            sAddZero = "1" + sAddZero;
-                //        }
-                //        else
-                //        {
-                //            sAddZero += "0";
-                //        }
-
-                //    }
-                //}
-            }
-            
-
+        
             chArray = (sAddZero + new string(chArray)).ToCharArray();
             int nIndex = chArray.Length - 1;
             string sResult = "";
