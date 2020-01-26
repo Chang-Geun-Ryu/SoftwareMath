@@ -437,6 +437,10 @@ namespace Assignment1
 
         private static bool checkBinary(string num)
         {
+            if (num.Length < 2)
+            {
+                return false;
+            }
             if (num.ToCharArray()[0] != '0' || num.ToCharArray()[1] != 'b')
             {
                 return false;
