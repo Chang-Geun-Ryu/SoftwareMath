@@ -481,7 +481,7 @@ namespace Assignment1
                 chArray = GetTwosComplementOrNull(num).ToCharArray();
             }
 
-            while (SIGN < nIndex)
+            while (SIGN <= nIndex)
             {
                 if (chArray[nIndex--] == '1')
                 {
@@ -494,6 +494,11 @@ namespace Assignment1
             if (bNegative)
             {
                 sValue = "-" + sValue;
+            }
+
+            if (sValue == "")
+            {
+                sValue = "0";
             }
 
             return sValue;
@@ -603,6 +608,11 @@ namespace Assignment1
 
         private static bool checkHex(string num)
         {
+            if (num.Length < 2)
+            {
+                return false;
+            }
+
             if (num.ToCharArray()[0] == '0' && num.ToCharArray()[1] == 'x')
             {
                 char[] charArray = num.Substring(2).ToCharArray();
@@ -897,7 +907,10 @@ namespace Assignment1
 
             if (bOverFlow)
             {
-                return null;
+                if (bNegative == false)
+                {
+                    return null;
+                }
             }
 
             sRemainders = sTemp;
