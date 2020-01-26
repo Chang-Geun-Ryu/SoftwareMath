@@ -8,8 +8,6 @@ namespace Assignment1
         private int mBitCount = 0;
         private EMode mMode = EMode.Binary;
 
-        private bool mOverFlow = false;
-
         public BigNumberCalculator(int bitCount, EMode mode)
         {
             this.mBitCount = bitCount;
@@ -256,7 +254,7 @@ namespace Assignment1
             {
                 sBinary2 = ToBinaryOrNull(num2);
             }
-            else if (checkDecimal(num1))
+            else if (checkDecimal(num2))
             {
                 sBinary2 = getDecimalToBinaryCallAdd(num2);
             }
@@ -278,8 +276,7 @@ namespace Assignment1
                 return null;
             }
 
-            string sResult = getSumBinary(sBinary1, sBinary2);
-            bOverflow = this.mOverFlow;
+            string sResult = getSumBinary(sBinary1, sBinary2, out bOverflow);
 
             if (this.mMode == EMode.Binary)
             {
@@ -297,10 +294,67 @@ namespace Assignment1
         public string SubtractOrNull(string num1, string num2, out bool bOverflow)
         {
             bOverflow = false;
+
+            string sBinary1 = "";
+            string sBinary2 = "";
+
+            if (checkBinary(num1) || checkHex(num1))
+            {
+                sBinary1 = ToBinaryOrNull(num1);
+            }
+            else if (checkDecimal(num1))
+            {
+                sBinary1 = getDecimalToBinaryCallAdd(num1);
+            }
+            else
+            {
+                return null;
+            }
+
+            if (checkBinary(num2) || checkHex(num2))
+            {
+                sBinary2 = ToBinaryOrNull(num2);
+            }
+            else if (checkDecimal(num2))
+            {
+                sBinary2 = getDecimalToBinaryCallAdd(num2);
+            }
+            else
+            {
+                return null;
+            }
+
+            if (sBinary1 == null || sBinary2 == null)
+            {
+                return null;
+            }
+
+            sBinary1 = getBitPolish(sBinary1);
+            sBinary2 = getBitPolish(sBinary2);
+
+            sBinary2 = GetTwosComplementOrNull("0b" + sBinary2);
+
+            if (sBinary1 == null || sBinary2 == null)
+            {
+                return null;
+            }
+
+            string sResult = getSumBinary(sBinary1, sBinary2.Substring(2), out bOverflow);
+
+            if (this.mMode == EMode.Binary)
+            {
+
+                return "0b" + sResult;
+            }
+            else if (this.mMode == EMode.Decimal)
+            {
+                return getBinaryToDecimal("0b" + sResult);
+            }
+
             return null;
         }
 
-        private string getSumBinary(string num1, string num2)
+        private string getSumBinary(string num1, string num2, out bool bOverflow)
         {
             string sResult = "";
 
@@ -310,8 +364,7 @@ namespace Assignment1
 
             int nAddOne = 0;
             int index = this.mBitCount - 1;
-            this.mOverFlow = false;
-
+            bOverflow = false;
             int[] mCarry = new int[2];
 
             while (index >= 0)
@@ -348,24 +401,17 @@ namespace Assignment1
 
             if (chNumFirstArr[0] == chNumSecondArr[0] && sResult.ToCharArray()[0] != chNumSecondArr[0])
             {
-                this.mOverFlow = true;
+                bOverflow = true;
             }
-            //else if(mCarry[0] == 1 && mCarry[1] == 0)
-            //{
-            //    this.mOverFlow = true;
-            //}
-            //else if (mCarry[0] == 1)
-            //{
-            //    this.mOverFlow = true;
-            //}
 
-                return sResult;
+            return sResult;
         }
 
         private string getBitPolish(string num)
         {
             string sResult = "";
             string sBinary = num.Substring(2);
+
 
             if (this.mBitCount >= sBinary.Length)
             {
@@ -374,7 +420,7 @@ namespace Assignment1
                 string sZero = "";
                 for (int i = 0; i < this.mBitCount - sBinary.Length; i++)
                 {
-                    sZero += "0";
+                    sZero += cSign;
                 }
 
                 sResult = cSign + sZero + sBinary.Substring(1);
