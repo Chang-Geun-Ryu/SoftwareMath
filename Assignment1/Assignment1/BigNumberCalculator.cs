@@ -1,11 +1,17 @@
 ﻿using System;
+using System.Linq;
 
 namespace Assignment1
 {
     public class BigNumberCalculator
     {
+        private int nBitCount = 0;
+        private EMode mode = EMode.Binary;
+
         public BigNumberCalculator(int bitCount, EMode mode)
         {
+            this.nBitCount = bitCount;
+            this.mode = mode;
         }
 
         public static string GetOnesComplementOrNull(string num)
@@ -98,65 +104,7 @@ namespace Assignment1
             }
             else if (checkDecimal(num))
             {
-                bool bNegative = false;
-                Int64 nNumber = Int64.Parse(num);
-                if (num.Contains("-"))
-                {
-                    bNegative = true;
-                    nNumber = -nNumber;
-                }
-
-                int nPow = 0;
-                bool bFirst = true;
-                string sBinary = "";
-
-                while (true)
-                {
-                    if (bFirst)
-                    {
-                        Int64 value = (Int64)Math.Pow(2, nPow);
-                        if ((nNumber - value) > 0)
-                        {
-                            nPow++;
-                        }
-                        else
-                        {
-                            bFirst = false;
-                        }
-                    }
-                    else
-                    {
-                        Int64 value = (Int64)Math.Pow(2, nPow);
-                        if ((nNumber - value) >= 0)
-                        {
-                            nNumber -= value;
-
-                            sBinary += "1";
-                        }
-                        else
-                        {
-                            sBinary += "0";
-                        }
-
-                        nPow--;
-
-                        if (nNumber <= 0 || nPow < 0)
-                        {
-                            break;
-                        }
-                    }
-                }
-                
-                if (num.Contains('-'))
-                {
-                    sBinary = GetTwosComplementOrNull("0b" + sBinary);
-                }
-                else
-                {
-                    sBinary = "0b" + sBinary;
-                }
-
-                return sBinary;
+                return decimalToBinary(num);
             }
 
             return null;
@@ -166,6 +114,27 @@ namespace Assignment1
         {
             if (num.Contains("0b"))
             {
+                char[] chArray = num.Substring(2).ToCharArray();
+                if (chArray.Length % 4 == 0)
+                {
+
+                }
+                else
+                {
+                    string sZero = "";
+                    string sAddBinary = "0";
+                    if (chArray[0] == '1')
+                    {
+                        sAddBinary = "1";
+                    }
+                    
+                    for (int i = 0; i < 4 - num.Substring(2).Length % 4; i++)
+                    {
+                        sZero = sAddBinary + sZero;
+                    }
+                    num = "0b" + sZero + num.Substring(2);
+                }
+
                 return getBinaryToHex(num);
             }
             else if (num.Contains("0x"))
@@ -176,7 +145,7 @@ namespace Assignment1
             {
                 string sBinary = ToBinaryOrNull(num);
 
-                return getBinaryToHex(sBinary);
+                return getBinaryToHex(sBinary, false);
             }
 
             return null;
@@ -221,7 +190,7 @@ namespace Assignment1
             int nIndex = chArray.Length - 1;
             const int nSign = 2;
             int nPow = 0;
-            Int64 nValue = 0;
+            string sValue = "";
 
             if (chArray[nSign] == '1')
             {
@@ -233,7 +202,9 @@ namespace Assignment1
             {
                 if (chArray[nIndex--] == '1')
                 {
-                    nValue += 1 << nPow;
+                    //nValue += 1 << nPow;
+
+                    sValue = getSumDecimalString(sValue, getBinaryPower(nPow));
                 }
 
                 nPow++;
@@ -241,28 +212,59 @@ namespace Assignment1
 
             if (bNegative)
             {
-                nValue = -nValue;
+                //nValue = -nValue;
+                sValue = "-" + sValue;
             }
 
-            return convertDecimalToString(nValue);
+            return sValue;//convertDecimalToString(nValue);
         }
 
-        public static string getBinaryToHex(string num)
+        public static string getBinaryToHex(string num, bool bFlag = true)
         {
             char[] chArray = num.Substring(2).ToCharArray();
             //char[] chArray = num.ToCharArray();
             string sAddZero = "";
             char[] cHexArray = { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F' };
+            bool bBinary = false;
 
-            if (chArray.Length % 4 > 0)
+            //if (bFlag)
             {
-                for (int nZero = 4 - chArray.Length % 4; nZero > 0; nZero--)
-                {
-                    sAddZero += "0";
-                }
-            }
+                //if (chArray.Length % 4 == 0)
+                //{
+                //    sAddZero = "0000";
+                //}
+                //else
+                //{
+                //    for (int i = 0; i < 4 - chArray.Length % 4; i++)
+                //    {
+                //        sAddZero = "0" + sAddZero;
+                //    }
+                //}
 
-            chArray = (sAddZero + num.Substring(2)).ToCharArray();
+                //if (chArray[0] == '1')
+                //{
+                //    chArray[0] = '0';
+                //    bBinary = true;
+                //}
+                //if (chArray.Length % 4 > 0)
+                //{
+                //    for (int nZero = 4 - chArray.Length % 4; nZero > 0; nZero--)
+                //    {
+                //        if (nZero == 1 && bBinary)
+                //        {
+                //            sAddZero = "1" + sAddZero;
+                //        }
+                //        else
+                //        {
+                //            sAddZero += "0";
+                //        }
+
+                //    }
+                //}
+            }
+            
+
+            chArray = (sAddZero + new string(chArray)).ToCharArray();
             int nIndex = chArray.Length - 1;
             string sResult = "";
 
@@ -468,25 +470,168 @@ namespace Assignment1
                 int nIndex = sResult.Length-1;
                 char[] chArray = sResult.ToCharArray();
                 bool bOne = false;
-                
+                string sTemp = "";
+
                 while (nIndex >= 0)
                 {
                     string sSum = getSumNumberASCII(chArray[nIndex], chArray[nIndex], bOne ? 1:0);
 
                     char[] chSubArray = sSum.ToCharArray();
-                    if (chSubArray.Length == 2)
-                    {
-                        bOne = true;
-                    }
 
-                    chArray[nIndex--] = chSubArray[chSubArray.Length -1];
+                    bOne = chSubArray.Length == 2 ? true : false;
+
+                    if (nIndex == 0)
+                    {
+                        sTemp = new string(chSubArray) + sTemp;
+                    }
+                    else
+                    {
+                        sTemp = new string(chSubArray, chSubArray.Length - 1, 1) + sTemp;
+                    }
+                    
+                    nIndex--;
                 }
 
-                sResult = new string(chArray);
+                sResult = sTemp;
 
             }
 
             return sResult;
+        }
+
+        public static string getSumDecimalString(string sFirst, string sSecond)
+        {
+            string sResult = "";
+            int diffLength = sFirst.Length - sSecond.Length > 0 ? sFirst.Length - sSecond.Length : sSecond.Length - sFirst.Length;
+            string sZero = "";
+
+            for (int idx = 0; idx < diffLength; idx++)
+            {
+                sZero += "0";
+            }
+
+            if (sFirst.Length - sSecond.Length > 0)
+            {
+                sSecond = sZero + sSecond;
+            }
+            else
+            {
+                sFirst = sZero + sFirst;
+            }
+
+            int nIndex = sFirst.Length - 1;
+            char[] chFirstArr = sFirst.ToCharArray();
+            char[] chSecondArr = sSecond.ToCharArray();
+            bool bOne = false;
+
+            while (nIndex >= 0)
+            {
+                string sSum = getSumNumberASCII(chFirstArr[nIndex], chSecondArr[nIndex], bOne ? 1 : 0);
+
+                char[] chSubArray = sSum.ToCharArray();
+
+                bOne = chSubArray.Length == 2 ? true : false;
+
+                if (nIndex == 0)
+                {
+                    sResult = new string(chSubArray) + sResult;
+                }
+                else
+                {
+                    sResult = new string(chSubArray, chSubArray.Length - 1, 1) + sResult;
+                }
+
+                nIndex--;
+            }
+
+            return sResult;
+        }
+
+        public static string decimalToBinary(string num)
+        {
+            string sResult = "";
+            bool bNegative = false;
+            char[] chArray = num.ToCharArray();
+            const int nDivisor = 2;
+
+            if (chArray[0] == '-')
+            {
+                bNegative = true;
+                chArray = num.Substring(1).ToCharArray();
+            }
+
+            int[] nCalcArray = new int[chArray.Length];
+
+            for (int i = 0; i < chArray.Length; i++)
+            {
+                nCalcArray[i] = chArray[i] - 48;
+            }
+            
+
+            int nTemp = 0;
+            string sQuotients = "";
+            string sRemainders = "";
+            int nRemainder = 0;
+
+            while (nCalcArray.Length > 0)
+            {
+                for (int i = 0; i < nCalcArray.Length; i++)
+                {
+                    nTemp += nCalcArray[i];
+
+                    int nQuotient = nTemp / nDivisor;
+                    nRemainder = nTemp % nDivisor;
+
+                    nTemp = nRemainder * 10;
+
+                    sQuotients += (char)(nQuotient);
+                }
+
+
+                chArray = sQuotients.ToCharArray();
+                if (chArray[0] == 0)
+                {
+                    chArray = sQuotients.Substring(1).ToCharArray();
+                    
+                }
+
+                nCalcArray = new int[chArray.Length];
+
+                for (int i = 0; i < chArray.Length; i++)
+                {
+                    nCalcArray[i] = chArray[i];
+                }
+
+                sRemainders = (char)(nRemainder + 48) + sRemainders;
+                sQuotients = "";
+                nTemp = 0;
+            }
+
+            //if (sRemainders.ToCharArray()[0] == '1')
+            //{
+            //    sRemainders = "0" + sRemainders;
+            //}
+            if (sRemainders.Length % 4 == 0)
+            {
+                sRemainders = "0000" + sRemainders;
+            }
+            else
+            {
+                string sTemp = sRemainders;
+                for (int i = 0; i < 4 - sRemainders.Length % 4; i++)
+                {
+                    sTemp = "0" + sTemp;
+                }
+                sRemainders = sTemp;
+            }
+
+            if (bNegative)
+            {
+                string s = GetTwosComplementOrNull("0b" + sRemainders);
+                return GetTwosComplementOrNull("0b" + sRemainders);
+            }
+
+            return "0b" + sRemainders;
         }
     }
 }
