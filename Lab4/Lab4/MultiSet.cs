@@ -6,7 +6,7 @@ namespace Lab4
 {
     public sealed class MultiSet
     {
-        public List<string> mList = new List<string> {};
+        public List<string> mList = new List<string> { };
 
         public void Add(string element)
         {
@@ -178,7 +178,7 @@ namespace Lab4
         {
             for (int i = 0; i < arr.Length - 1; i++)
             {
-                if (arr[i] && arr[i+1] == false)
+                if (arr[i] && arr[i + 1] == false)
                 {
                     arr[i] = false;
                     arr[i + 1] = true;
@@ -219,7 +219,7 @@ namespace Lab4
             return false;
         }
 
-        public bool findEqual(MultiSet other)
+        private bool findEqual(MultiSet other)
         {
             return this.Subtract(other).ToList().Count > 0 ? true : false;
         }
