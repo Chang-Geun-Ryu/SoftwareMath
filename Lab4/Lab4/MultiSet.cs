@@ -67,7 +67,7 @@ namespace Lab4
         public MultiSet Intersect(MultiSet other)
         {
             var otherList = other.ToList();
-            var thisList = this.mList;
+            var thisList = new List<string>(mList);
             MultiSet set = new MultiSet();
             List<string> tempList = new List<string> { };
 
@@ -77,6 +77,7 @@ namespace Lab4
                 {
                     if (otherElement == element)
                     {
+
                         set.Add(element);
                         thisList.Remove(element);
                         break;
@@ -90,13 +91,24 @@ namespace Lab4
         public MultiSet Subtract(MultiSet other)
         {
             var otherList = other.ToList();
-            var thisList = this.mList;
+            var thisList = new List<string>(mList);
             MultiSet set = new MultiSet();
             List<string> tempList = new List<string> { };
 
-            var diffList = thisList.FindAll(element => otherList.FindIndex(x => x == element) == -1);
+            //var diffList = thisList.FindAll(element => otherList.FindIndex(x => x == element) == -1);
+            foreach (string deletElement in otherList)
+            {
+                foreach (string element in thisList)
+                {
+                    if (deletElement == element)
+                    {
+                        thisList.Remove(deletElement);
+                        break;
+                    }
+                }
+            }
 
-            foreach (string element in diffList)
+            foreach (string element in thisList)
             {
                 set.Add(element);
             }
@@ -123,23 +135,43 @@ namespace Lab4
                 {
                     powerSet.Add(powElement);
                 }
-                
             }
 
-            //Func<MultiSet, List<MultiSet>, bool> overlap = (finder, power) => 
-            //powerSet.Where(finder => { (finder.ToList(), powerSet) => true};) ;
+            powerSet.Sort(sortMultiSet);
 
             return powerSet;
         }
 
         public bool IsSubsetOf(MultiSet other)
         {
-            return false;
+            var otherList = other.ToList();
+
+            foreach (string element in mList)
+            {
+                bool bCheck = false;
+                foreach (string otherElement in otherList)
+                {
+                    if (element == otherElement)
+                    {
+                        bCheck = true;
+                        continue;
+                    }
+                }
+
+                if (bCheck)
+                {
+                    continue;
+                }
+                
+                return false;
+            }
+            
+            return true;
         }
 
         public bool IsSupersetOf(MultiSet other)
         {
-            return false;
+            return other.IsSubsetOf(this);
         }
 
         private bool[] shiftBoolArray(bool[] arr)
@@ -190,6 +222,34 @@ namespace Lab4
         public bool findEqual(MultiSet other)
         {
             return this.Subtract(other).ToList().Count > 0 ? true : false;
+        }
+
+        private int sortMultiSet(MultiSet x, MultiSet y)
+        {
+            var xArr = x.ToList().ToArray();
+            var yArr = y.ToList().ToArray();
+
+            
+            int size = xArr.Length - yArr.Length >= 0 ? yArr.Length : xArr.Length;
+
+            for (int idx = 0; idx < size; idx++)
+            {
+                var compare = xArr[idx].CompareTo(yArr[idx]);
+
+                if (compare != 0)
+                    return compare;
+            }
+
+            if (xArr.Length == yArr.Length)
+            {
+                return 0;
+            }
+            else if (xArr.Length < yArr.Length)
+            {
+                return -1;
+            }
+
+            return 1;
         }
     }
 }
