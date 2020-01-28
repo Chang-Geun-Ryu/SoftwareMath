@@ -6,30 +6,30 @@ namespace Lab4
 {
     public sealed class MultiSet
     {
-        public List<string> mList = new List<string> { };
+        public List<string> StringList = new List<string> { };
 
         public void Add(string element)
         {
-            mList.Add(element);
+            StringList.Add(element);
 
-            mList.Sort();
+            StringList.Sort();
         }
 
         public bool Remove(string element)
         {
-            return mList.Remove(element);
+            return StringList.Remove(element);
         }
 
         public uint GetMultiplicity(string element)
         {
-            var list = mList.FindAll(x => x == element);
+            var list = StringList.FindAll(x => x == element);
 
             return (uint)list.Count;
         }
 
         public List<string> ToList()
         {
-            return mList;
+            return StringList;
         }
 
         public MultiSet Union(MultiSet other)
@@ -38,7 +38,7 @@ namespace Lab4
             MultiSet set = new MultiSet();
             HashSet<string> tempSet = new HashSet<string> { };
 
-            foreach (string element in mList)
+            foreach (string element in StringList)
             {
                 tempSet.Add(element);
             }
@@ -67,7 +67,7 @@ namespace Lab4
         public MultiSet Intersect(MultiSet other)
         {
             var otherList = other.ToList();
-            var thisList = new List<string>(mList);
+            var thisList = new List<string>(StringList);
             MultiSet set = new MultiSet();
             List<string> tempList = new List<string> { };
 
@@ -91,7 +91,7 @@ namespace Lab4
         public MultiSet Subtract(MultiSet other)
         {
             var otherList = other.ToList();
-            var thisList = new List<string>(mList);
+            var thisList = new List<string>(StringList);
             MultiSet set = new MultiSet();
             List<string> tempList = new List<string> { };
 
@@ -120,11 +120,11 @@ namespace Lab4
         {
             List<MultiSet> powerSet = new List<MultiSet> { };
 
-            for (int i = 0; i < 1 << mList.Count; i++)
+            for (int i = 0; i < 1 << StringList.Count; i++)
             {
                 bool[] caseArray = getCaseBoolArray(i);
                 int idx = 0;
-                var subList = mList.FindAll(x => caseArray[idx++]);
+                var subList = StringList.FindAll(x => caseArray[idx++]);
                 MultiSet powElement = new MultiSet();
 
                 subList.ForEach(element => powElement.Add(element));
@@ -145,7 +145,7 @@ namespace Lab4
         public bool IsSubsetOf(MultiSet other)
         {
             var otherList = new List<string>(other.ToList());
-            var thisList = new List<string>(mList);
+            var thisList = new List<string>(StringList);
 
             foreach (string element in thisList)
             {
@@ -194,9 +194,9 @@ namespace Lab4
 
         private bool[] getCaseBoolArray(int nNumber)
         {
-            bool[] bPowerFlagArr = Enumerable.Repeat(false, mList.Count).ToArray();
+            bool[] bPowerFlagArr = Enumerable.Repeat(false, StringList.Count).ToArray();
 
-            for (int i = 0; i < mList.Count; i++)
+            for (int i = 0; i < StringList.Count; i++)
             {
                 int nCase = 1 << i;
                 if ((nNumber & nCase) == nCase)
