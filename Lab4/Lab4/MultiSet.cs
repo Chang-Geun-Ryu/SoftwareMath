@@ -144,9 +144,10 @@ namespace Lab4
 
         public bool IsSubsetOf(MultiSet other)
         {
-            var otherList = other.ToList();
+            var otherList = new List<string>(other.ToList());
+            var thisList = new List<string>(mList);
 
-            foreach (string element in mList)
+            foreach (string element in thisList)
             {
                 bool bCheck = false;
                 foreach (string otherElement in otherList)
@@ -154,7 +155,8 @@ namespace Lab4
                     if (element == otherElement)
                     {
                         bCheck = true;
-                        continue;
+                        otherList.Remove(element);
+                        break;
                     }
                 }
 
