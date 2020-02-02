@@ -46,7 +46,7 @@ namespace Lab4
 
         static void Main(string[] args)
         {
-            //ss();
+            ss();
             dd();
 
             //MultiSet set = new MultiSet();
