@@ -3,17 +3,29 @@ namespace Lab6
 {
     public class Item
     {
-        public EType Type;
-        public double Weight;
-        public double Volume;
-        public bool IsToxicWaste;
+        public EType Type
+        {
+            get;
+        }
+        public double Weight
+        {
+            get;
+        }
+        public double Volume
+        {
+            get;
+        }
+        public bool IsToxicWaste
+        {
+            get;
+        }
 
         public Item(EType type, double weight, double volume, bool bToxicWaste)
         {
-            this.Type = type;
-            this.Weight = weight;
-            this.Volume = volume;
-            this.IsToxicWaste = bToxicWaste;
+            Type = type;
+            Weight = weight;
+            Volume = volume;
+            IsToxicWaste = bToxicWaste;
         }
     }
 }
