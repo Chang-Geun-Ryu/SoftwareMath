@@ -35,17 +35,21 @@ namespace Lab6
         // (1) 만약 아이템이 종이(paper), 가구(furniture) 또는 전기제품(electronics)이라면, 그 아이템의 무게는 5kg 미만이고 2kg 이상이다.
         public void Add(Item item)
         {
-            //if (item.Type == EType.Paper || item.Type == EType.Furniture || item.Type == EType.Electronics)
+            if (item.Type == EType.Paper || item.Type == EType.Furniture || item.Type == EType.Electronics)
             {
-                if (item.Weight < 5 && item.Weight >= 2 || (item.Type == EType.Plastic || item.Type == EType.Compost || item.Type == EType.Glass))
+                if (item.Weight < 5 && item.Weight >= 2 )
                 {
                     this.mRecycleItems.Add(item);
                     return;
                 }
             }
+            else if (item.Type == EType.Plastic || item.Type == EType.Compost || item.Type == EType.Glass)
+            {
+                this.mRecycleItems.Add(item);
+                return;
+            }
 
             this.mNonRecycleItems.Add(item);
-
         }
 
         // (2) 아이템의 부피가 10L, 11L 또는 15L가 아니다.
@@ -66,6 +70,7 @@ namespace Lab6
                     }
                 }
             }
+
             
 
             return DumpItems;

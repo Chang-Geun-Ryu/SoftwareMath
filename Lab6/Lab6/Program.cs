@@ -8,20 +8,6 @@ namespace Lab6
     {
         static void Main(string[] args)
         {
-            Item item1 = new Item(EType.Plastic, 2.2, 10, false);
-            Item item2 = new Item(EType.Glass, 5, 15, true);
-            Item item3 = new Item(EType.Furniture, 16, 11, false);
-            Item item4 = new Item(EType.Paper, 15.5, 10, true);
-
-            Recyclebot bot = new Recyclebot();
-            bot.Add(item1);
-            bot.Add(item2);
-            bot.Add(item3);
-            bot.Add(item4);
-
-            bot.Dump(); // item3만 반환된 목록에 있음
-            return;
-            /*
             Item item1 = new Item(EType.Plastic, 3.4, 10, false);
             Item item2 = new Item(EType.Glass, 5, 16, true);
             Item item3 = new Item(EType.Compost, 1.2, 5, true);
@@ -94,7 +80,6 @@ namespace Lab6
             {
                 Debug.Assert(itemEquals(dumps[i], expectedDumps[i]));
             }
-            */
         }
 
         static bool itemEquals(Item item1, Item item2)
