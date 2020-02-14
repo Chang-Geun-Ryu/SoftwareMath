@@ -59,6 +59,10 @@ namespace Lab6
                         dumpItems.Add(item);
                     }
                 }
+                else if (item.Volume != 10 && item.Volume != 11 && item.Volume != 15 && item.IsToxicWaste == false)
+                {
+                    dumpItems.Add(item);
+                }
                 // else if (item.Volume != 10 && item.Volume != 11 && item.Volume != 15)
                 // {
                 //     dumpItems.Add(item);
