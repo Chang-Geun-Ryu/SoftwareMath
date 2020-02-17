@@ -5,8 +5,13 @@ namespace Assignment3
 {
     public static class StepMaker
     {
-        private static int depth = 0;
+        // private static int depth = 0;
         public static List<int> MakeSteps(int[] steps, INoise noise)
+        {
+            return MakeStepTail(steps, noise, 0);
+        }
+
+        private static List<int> MakeStepTail(int[] steps, INoise noise, int acc)
         {
             List<int> stepList = new List<int>();
 
@@ -19,7 +24,7 @@ namespace Assignment3
                     for (int j = 1; j < 5; j++) 
                     {
                         int linearStep = (int)((double)j / 5.0 * (double)(steps[i + 1] - steps[i])) + steps[i];
-                        linearStep += noise.GetNext(StepMaker.depth);
+                        linearStep += noise.GetNext(acc);
                         stepList.Add(linearStep);
                     }
                 }
@@ -37,13 +42,14 @@ namespace Assignment3
             
             if (StepMaker.checkSteps(stepList.ToArray()))
             {
-                StepMaker.depth = 0;
+                // noise.depth = 0;
                 return stepList;
             }
             else 
             {
-                StepMaker.depth++;
-                return MakeSteps(stepList.ToArray(), noise);
+                // noise.depth++;
+                acc += 1;
+                return MakeStepTail(stepList.ToArray(), noise, acc);
             }
         }
 
@@ -58,17 +64,6 @@ namespace Assignment3
             }
 
             return true;
-        }
-
-        private static List<int> linearInterpolation(int nStart, int nEnd) 
-        {
-            int[] linearArray = {};
-
-            for (int i = 1; i < 5; i++) 
-            {
-                linearArray[i + 1] = (int)((double)i / 5.0 * (double)(nEnd - nStart)) + nStart;
-            }
-            return new List<int>(linearArray);
         }
     }
 }
