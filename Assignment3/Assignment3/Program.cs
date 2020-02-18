@@ -43,6 +43,10 @@ namespace Assignment3
             {
                 Debug.Assert(expectedValue3[i] == newSteps[i]);
             }
+
+            noise = new SineNoise();
+            int[] steps2 = new int[] { 100, 102, 112, 170, 10000000 };
+            newSteps = StepMaker.MakeSteps(steps2, noise);
         }
     }
 }
