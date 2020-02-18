@@ -7,10 +7,10 @@ namespace Assignment3
     {
         public static List<int> MakeSteps(int[] steps, INoise noise)
         {
-            return MakeStepTail(steps, noise, 0);
+            return makeStepTail(steps, noise, 0);
         }
 
-        private static List<int> MakeStepTail(int[] steps, INoise noise, int acc)
+        private static List<int> makeStepTail(int[] steps, INoise noise, int acc)
         {
             List<int> stepList = new List<int>();
 
@@ -43,7 +43,7 @@ namespace Assignment3
             else 
             {
                 acc += 1;
-                return MakeStepTail(stepList.ToArray(), noise, acc);
+                return makeStepTail(stepList.ToArray(), noise, acc);
             }
         }
 
