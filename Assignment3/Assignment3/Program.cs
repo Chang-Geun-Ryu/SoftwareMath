@@ -34,7 +34,7 @@ namespace Assignment3
                 Debug.Assert(expectedValue2[i] == newSteps[i]);
             }
 
-            noise = new SineNoise();
+            noise = new CosineNoise();
             newSteps = StepMaker.MakeSteps(steps, noise);
 
             Debug.Assert(expectedValue3.Count == newSteps.Count);
@@ -44,9 +44,6 @@ namespace Assignment3
                 Debug.Assert(expectedValue3[i] == newSteps[i]);
             }
 
-            noise = new SineNoise();
-            int[] steps2 = new int[] { 100, 102, 112, 170, 10000000 };
-            newSteps = StepMaker.MakeSteps(steps2, noise);
         }
     }
 }
@@ -83,6 +80,22 @@ namespace Assignment3
         {
             mX += BASE_SAMPLING_WIDTH / Math.Pow(2, level);
             return (int)(5 * Math.Sin(mX));
+        }
+    }
+}
+
+
+namespace Assignment3
+{
+    public sealed class CosineNoise : INoise
+    {
+        private const double BASE_SAMPLING_WIDTH = Math.PI / 4;
+        private double mX = -BASE_SAMPLING_WIDTH;
+
+        public int GetNext(int level)
+        {
+            mX += BASE_SAMPLING_WIDTH / Math.Pow(2, level);
+            return (int)(5 * Math.Cos(mX));
         }
     }
 }
