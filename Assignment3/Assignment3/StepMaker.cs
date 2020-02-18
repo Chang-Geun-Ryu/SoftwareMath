@@ -23,7 +23,7 @@ namespace Assignment3
 
                     for (int j = 1; j < 5; j++) 
                     {
-                        int linearStep = (int)((double)j / 5.0 * (double)(steps[i + 1] - steps[i])) + steps[i];
+                        int linearStep = (int)((double)j / 5.0 * (double)(steps[i + 1] - steps[i]) + (double)steps[i]) ;
                         linearStep += (int)noise.GetNext(acc);
                         stepList.Add(linearStep);
                     }
@@ -56,7 +56,7 @@ namespace Assignment3
                 int nAbs = Math.Abs(steps[i + 1] - steps[i]);
                 if (nAbs > 10) 
                 {
-                   bResult = false;
+                    bResult = false;
                 }
             }
 
