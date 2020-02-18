@@ -16,7 +16,8 @@ namespace Assignment3
 
             for (int i = 0; i < steps.Length - 1; i++) 
             {
-                if (steps[i + 1] - steps[i] > 10)
+                int nAbs = Math.Abs(steps[i + 1] - steps[i]);
+                if (nAbs > 10) 
                 {
                     stepList.Add(steps[i]);
 
@@ -48,15 +49,18 @@ namespace Assignment3
 
         private static bool checkSteps(int[] steps) 
         {
+            bool bResult = true;
+
             for (int i = 0; i < steps.Length - 1; i++)
             {
-               if (Math.Abs(steps[i + 1] - steps[i]) > 10) 
-               {
-                   return false;
-               }
+                int nAbs = Math.Abs(steps[i + 1] - steps[i]);
+                if (nAbs > 10) 
+                {
+                   bResult = false;
+                }
             }
 
-            return true;
+            return bResult;
         }
     }
 }
