@@ -26,8 +26,9 @@ namespace Assignment3
                     for (int j = 1; j < 5; j++) 
                     {
                         // int linearStep = (int)((double)j / 5.0 * (double)(steps[i + 1] - steps[i]) + (double)steps[i]);
-                        int linearStep = (j * (steps[i + 1] - steps[i])) / 5  + steps[i];
-                        linearStep += nNoise;
+                        // int linearStep = (j * (steps[i + 1] - steps[i])) / 5  + steps[i];
+                        int linearStep = (int)(nNoise + steps[i] + (steps[i + 1] - steps[i]) * (1.0 * (double)j) / 5.0);
+                        // linearStep += nNoise;
                         stepList.Add(linearStep);
                     }
                 }

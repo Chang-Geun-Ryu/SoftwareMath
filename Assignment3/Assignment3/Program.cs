@@ -8,11 +8,11 @@ namespace Assignment3
     {
         static void Main(string[] args)
         {
-            List<int> expectedValue1 = new List<int> { 100, 102, 112, 114, 116, 118, 120, 123, 125, 127, 130, 132, 135, 137, 139, 141, 143, 146, 148, 150, 153, 155, 158, 160, 162, 165, 167, 170 };
+            List<int> expectedValue1 = new List<int> { 185, 182, 180, 177, 175, 173, 170, 168, 165, 163, 161, 158, 156, 153, 151, 149, 146, 144, 141, 139, 137, 134, 132, 129, 127, 125, 127, 123, 119, 115, 111, 107, 116 };
             List<int> expectedValue2 = new List<int> { 100, 102, 112, 115, 117, 120, 122, 124, 127, 129, 132, 134, 136, 139, 141, 143, 145, 147, 150, 152, 155, 157, 159, 162, 164, 166, 168, 170 };
             List<int> expectedValue3 = new List<int> { 100, 102, 112, 115, 116, 117, 117, 123, 122, 124, 128, 132, 138, 139, 143, 146, 151, 151, 161, 170 };
 
-            int[] steps = new int[] { 100, 102, 112, 170 };
+            int[] steps = new int[] { 185, 125, 127, 107, 116 };
 
             INoise noise = new ZeroNoise();
             List<int> newSteps = StepMaker.MakeSteps(steps, noise);
@@ -34,7 +34,7 @@ namespace Assignment3
                 Debug.Assert(expectedValue2[i] == newSteps[i]);
             }
 
-            noise = new CosineNoise();
+            noise = new SineNoise();
             newSteps = StepMaker.MakeSteps(steps, noise);
 
             Debug.Assert(expectedValue3.Count == newSteps.Count);
