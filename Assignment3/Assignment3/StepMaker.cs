@@ -21,10 +21,13 @@ namespace Assignment3
                 {
                     stepList.Add(steps[i]);
 
+                    int nNoise = noise.GetNext(acc);
+
                     for (int j = 1; j < 5; j++) 
                     {
-                        int linearStep = (int)((double)j / 5.0 * (double)(steps[i + 1] - steps[i]) + (double)steps[i] + (double)noise.GetNext(acc));
-                        // linearStep += (int);
+                        // int linearStep = (int)((double)j / 5.0 * (double)(steps[i + 1] - steps[i]) + (double)steps[i]);
+                        int linearStep = (j * (steps[i + 1] - steps[i])) / 5  + steps[i];
+                        linearStep += nNoise;
                         stepList.Add(linearStep);
                     }
                 }
