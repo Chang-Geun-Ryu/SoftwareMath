@@ -7,30 +7,14 @@ namespace Assignment3
     {
         public static List<int> MakeSteps(int[] steps, INoise noise)
         {
-            return makeStepTail(steps, noise, 0);
-        }
-
-        private static List<int> makeStepTail(int[] steps, INoise noise, int acc)
-        {
             List<int> stepList = new List<int>();
-
-            for (int i = 0; i < steps.Length - 1; i++) 
+            for(int i = 0; i < steps.Length - 1; i++)
             {
                 int nAbs = Math.Abs(steps[i + 1] - steps[i]);
-                if (nAbs > 10) 
+                if(nAbs > 10)
                 {
-                    stepList.Add(steps[i]);
-
-                    int nNoise = noise.GetNext(acc);
-
-                    for (int j = 1; j < 5; j++) 
-                    {
-                        // int linearStep = (int)((double)j / 5.0 * (double)(steps[i + 1] - steps[i]) + (double)steps[i]);
-                        // int linearStep = (j * (steps[i + 1] - steps[i])) / 5  + steps[i];
-                        int linearStep = (int)(nNoise + steps[i] + (steps[i + 1] - steps[i]) * (1.0 * (double)j) / 5.0);
-                        // linearStep += nNoise;
-                        stepList.Add(linearStep);
-                    }
+                    // int[] arr = new int[] {steps[i], steps[i + 1]};
+                    stepList.AddRange((makeStepTail(new List<int>{steps[i], steps[i + 1]}, noise, 0)));
                 }
                 else 
                 {
@@ -38,17 +22,52 @@ namespace Assignment3
                 }
             }
 
-            stepList.Add(steps[steps.Length - 1]);
+            stepList.Add(steps[steps.Length-1]);
+            // return new List<int> (makeStepTail(steps, noise, 0));
+            return stepList;
+        }
+
+        private static List<int> makeStepTail(List<int> steps, INoise noise, int acc)
+        {
+
+            List<int> stepList = getLinearValue(steps[0], steps[1], noise, acc);
+            steps.InsertRange(1, stepList);
             
-            if (StepMaker.checkSteps(stepList.ToArray()))
+            if (checkSteps(steps.ToArray()))
             {
-                return stepList;
+                return steps;
             }
-            else 
+
+            acc += 1;
+            List<int> result = new List<int> {};
+            for(int i = 0; i < steps.Count - 1; i++)
             {
-                acc += 1;
-                return makeStepTail(stepList.ToArray(), noise, acc);
+                int nAbs = Math.Abs(steps[i + 1] - steps[i]);
+                if(nAbs > 10)
+                {
+                    var temp = makeStepTail(new List<int> {steps[i], steps[i + 1]}, noise, acc);
+                    temp.RemoveAt(temp.Count-1);
+                    result.AddRange(temp);
+                }
+                else 
+                {
+                    result.Add(steps[i]);
+                }
             }
+            
+            return result;
+        }
+
+        private static List<int> getLinearValue(int nStart, int nEnd, INoise noise, int acc)
+        {
+            List<int> linearValues = new List<int> {};
+
+            for(int i = 1; i < 5; i++)
+            {
+                linearValues.Add((int)(noise.GetNext(acc) + nStart + (nEnd - nStart) * (1.0 * (double)i) / 5.0));
+            }
+
+            return linearValues;
         }
 
         private static bool checkSteps(int[] steps) 
