@@ -14,7 +14,9 @@ namespace Assignment3
                 if(nAbs > 10)
                 {
                     // int[] arr = new int[] {steps[i], steps[i + 1]};
-                    stepList.AddRange((makeStepTail(new List<int>{steps[i], steps[i + 1]}, noise, 0)));
+                    var temp = (makeStepTail(new List<int>{steps[i], steps[i + 1]}, noise, 0));
+                    temp.RemoveAt(temp.Count-1);
+                    stepList.AddRange(temp);
                 }
                 else 
                 {
@@ -39,7 +41,7 @@ namespace Assignment3
             }
 
             acc += 1;
-            List<int> result = new List<int> {};
+            List<int> result = new List<int>();
             for(int i = 0; i < steps.Count - 1; i++)
             {
                 int nAbs = Math.Abs(steps[i + 1] - steps[i]);
@@ -51,6 +53,7 @@ namespace Assignment3
                 }
                 else 
                 {
+                    
                     result.Add(steps[i]);
                 }
             }
