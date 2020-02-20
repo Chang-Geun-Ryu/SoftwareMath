@@ -8,14 +8,16 @@ namespace Assignment3
         public static List<int> MakeSteps(int[] steps, INoise noise)
         {
             List<int> stepList = new List<int>();
+
             for(int i = 0; i < steps.Length - 1; i++)
             {
                 int nAbs = Math.Abs(steps[i + 1] - steps[i]);
+
                 if(nAbs > 10)
                 {
-                    // int[] arr = new int[] {steps[i], steps[i + 1]};
-                    var temp = (makeStepTail(new List<int>{steps[i], steps[i + 1]}, noise, 0));
-                    // temp.RemoveAt(temp.Count-1);
+                    List<int> tempList = new List<int>{steps[i], steps[i + 1]};
+
+                    var temp = (makeStepTail(tempList, noise, 0));
                     stepList.AddRange(temp);
                 }
                 else 
@@ -68,7 +70,11 @@ namespace Assignment3
 
             for(int i = 1; i < 5; i++)
             {
-                linearValues.Add((int)(noise.GetNext(acc) + nStart + (nEnd - nStart) * (1.0 * (double)i) / 5.0));
+                decimal start = nStart;
+                decimal end = nEnd;
+                decimal noiseResult = noise.GetNext(acc);
+                decimal value = i;
+                linearValues.Add((int)(noiseResult + start + (end - start) * (1.0m * value) / 5.0m));
             }
 
             return linearValues;
