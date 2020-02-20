@@ -66,15 +66,17 @@ namespace Assignment3
 
         private static List<int> getLinearValue(int nStart, int nEnd, INoise noise, int acc)
         {
-            List<int> linearValues = new List<int> {};
+            List<int> linearValues = new List<int> { };
 
-            for(int i = 1; i < 5; i++)
+            for(int i = 1; i < 5; i++ )
             {
-                decimal start = nStart;
-                decimal end = nEnd;
-                decimal noiseResult = noise.GetNext(acc);
-                decimal value = i;
-                linearValues.Add((int)(noiseResult + start + (end - start) * (1.0m * value) / 5.0m));
+                // decimal start = nStart;
+                // decimal end = nEnd;
+                // decimal noiseResult = noise.GetNext(acc);
+                // decimal value = i;
+                // linearValues.Add((int)(noiseResult + start + (end - start) * (1.0m * value) / 5.0m));
+                int temp = noise.GetNext(acc) +  (int)((decimal)nStart + (decimal)((nEnd - nStart) * i) / 5.0m);
+                linearValues.Add(temp);
             }
 
             return linearValues;
