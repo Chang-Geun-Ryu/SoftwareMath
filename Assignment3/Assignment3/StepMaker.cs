@@ -15,7 +15,7 @@ namespace Assignment3
                 {
                     // int[] arr = new int[] {steps[i], steps[i + 1]};
                     var temp = (makeStepTail(new List<int>{steps[i], steps[i + 1]}, noise, 0));
-                    temp.RemoveAt(temp.Count-1);
+                    // temp.RemoveAt(temp.Count-1);
                     stepList.AddRange(temp);
                 }
                 else 
@@ -37,6 +37,7 @@ namespace Assignment3
             
             if (checkSteps(steps.ToArray()))
             {
+                steps.RemoveAt(steps.Count-1);
                 return steps;
             }
 
@@ -48,7 +49,7 @@ namespace Assignment3
                 if(nAbs > 10)
                 {
                     var temp = makeStepTail(new List<int> {steps[i], steps[i + 1]}, noise, acc);
-                    temp.RemoveAt(temp.Count-1);
+                    // temp.RemoveAt(temp.Count-1);
                     result.AddRange(temp);
                 }
                 else 

@@ -8,11 +8,12 @@ namespace Assignment3
     {
         static void Main(string[] args)
         {
-            List<int> expectedValue1 = new List<int> { 185, 182, 180, 177, 175, 173, 170, 168, 165, 163, 161, 158, 156, 153, 151, 149, 146, 144, 141, 139, 137, 134, 132, 129, 127, 125, 127, 123, 119, 115, 111, 107, 116 };
+            List<int> expectedValue1 = new List<int> { 100, 102, 112, 114, 116, 118, 120, 123, 125, 127, 130, 132, 135, 137, 139, 141, 143, 146, 148, 150, 153, 155, 158, 160, 162, 165, 167, 170 };
             List<int> expectedValue2 = new List<int> { 100, 102, 112, 115, 117, 120, 122, 124, 127, 129, 132, 134, 136, 139, 141, 143, 145, 147, 150, 152, 155, 157, 159, 162, 164, 166, 168, 170 };
             List<int> expectedValue3 = new List<int> { 100, 102, 112, 115, 116, 117, 117, 123, 122, 124, 128, 132, 138, 139, 143, 146, 151, 151, 161, 170 };
+            List<int> expectedValue4 = new List<int> { 185, 182, 180, 177, 175, 173, 170, 168, 165, 163, 161, 158, 156, 153, 151, 149, 146, 144, 141, 139, 137, 134, 132, 129, 127, 125, 127, 123, 119, 115, 111, 107, 116 };
 
-            int[] steps = new int[] { 185, 125, 127, 107, 116 };
+            int[] steps = new int[] { 100, 102, 112, 170 };
 
             INoise noise = new ZeroNoise();
             List<int> newSteps = StepMaker.MakeSteps(steps, noise);
@@ -24,20 +25,20 @@ namespace Assignment3
                 Debug.Assert(expectedValue1[i] == newSteps[i]);
             }
 
-            // noise = new ConstantNoise();
-            // newSteps = StepMaker.MakeSteps(steps, noise);
+            noise = new ConstantNoise();
+            newSteps = StepMaker.MakeSteps(steps, noise);
 
-            // Debug.Assert(expectedValue2.Count == newSteps.Count);
+            Debug.Assert(expectedValue2.Count == newSteps.Count);
 
-            // for (int i = 0; i < expectedValue2.Count; i++)
-            // {
-            //     Debug.Assert(expectedValue2[i] == newSteps[i]);
-            // }
+            for (int i = 0; i < expectedValue2.Count; i++)
+            {
+                Debug.Assert(expectedValue2[i] == newSteps[i]);
+            }
 
             noise = new SineNoise();
             List<int> arr = new List<int> {0,1,2,3,4,5,6,7,8,9};
             arr.ForEach(p => Console.WriteLine("{1}noise: {0}", noise.GetNext(p), p));
-
+            
             noise = new SineNoise();
             newSteps = StepMaker.MakeSteps(steps, noise);
 
@@ -48,6 +49,17 @@ namespace Assignment3
                 Debug.Assert(expectedValue3[i] == newSteps[i]);
             }
 
+            int[] steps1 = new int[] {185, 125, 127, 107, 116};
+
+            noise = new ZeroNoise();
+            newSteps = StepMaker.MakeSteps(steps1, noise);
+
+            Debug.Assert(expectedValue4.Count == newSteps.Count);
+
+            for (int i = 0; i < expectedValue4.Count; i++)
+            {
+                Debug.Assert(expectedValue4[i] == newSteps[i]);
+            }
         }
     }
 }
