@@ -41,10 +41,11 @@ namespace Lab7
                                 nSortKey |= 1 << nPriority;
                             }
                             nPriority--;
-                            Console.WriteLine($"bit: {Convert.ToString(nSortKey, 2).PadLeft(32, '0')}");
+                            Console.WriteLine($"SortKey: {Convert.ToString(nSortKey, 2).PadLeft(32, '0')}, status: {feature}" );
+                            Console.WriteLine($"_status: {Convert.ToString((int)status, 2).PadLeft(32, '0')}, status: {status}" );
                         });
                     
-                    nSortKey |= nMatch == -1 ? 0 : (1 << featureList.Count + nMatch);
+                    nSortKey |= nMatch == -1 ? 0 : (1 << featureList.Count + 1) * nMatch;
                     Console.WriteLine($"result5: {Convert.ToString(nSortKey, 2).PadLeft(32, '0')}");
                     Console.WriteLine($"p: {p.Name}, p Count: {featureList.Count}, nMatch: {nMatch}, sortKey: {nSortKey}");
                     return nSortKey;
