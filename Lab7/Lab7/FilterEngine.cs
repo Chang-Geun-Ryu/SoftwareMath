@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace Lab7
 {
-    static class FilterEngine
+    public static class FilterEngine
     {
         public static List<Frame> FilterFrames(List<Frame> list, EFeatureFlags features)
         {
