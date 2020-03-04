@@ -29,11 +29,14 @@ namespace Lab7
                     int nPriority = featureList.Count - 1;
                     int nSortKey = 0;
 
+                    EFeatureFlags status = p.Features;
+
                     featureList.ForEach(
                         feature => 
                         {
-                            if ((feature & p.Features) != EFeatureFlags.Default)
+                            if ((feature & status) != EFeatureFlags.Default)
                             {
+                                status ^= feature;
                                 nMatch++;
                                 nSortKey |= 1 << nPriority;
                             }

@@ -127,6 +127,8 @@ namespace Lab7
             Debug.Assert(sortedFrames[4].ID == frames[2].ID || sortedFrames[4].ID == frames[5].ID || sortedFrames[4].ID == frames[6].ID);
             Debug.Assert(sortedFrames[5].ID == frames[3].ID || sortedFrames[5].ID == frames[4].ID);
             Debug.Assert(sortedFrames[6].ID == frames[3].ID || sortedFrames[6].ID == frames[4].ID);
+
+            sortKeys = FilterEngine.GetSortKeys(frames, new List<EFeatureFlags> { EFeatureFlags.Aviator, EFeatureFlags.Black, EFeatureFlags.Women });
         }
 
         private static List<Frame> sort(List<int> sortKeys, List<Frame> frames)
