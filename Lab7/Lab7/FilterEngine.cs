@@ -45,8 +45,7 @@ namespace Lab7
                     Console.WriteLine($"result5: {Convert.ToString(nSortKey, 2).PadLeft(32, '0')}");
                     Console.WriteLine($"p: {p.Name}, p Count: {featureList.Count}, nMatch: {nMatch}, sortKey: {nSortKey}");
                     return nSortKey;
-                } );
-            //return new List<int> {0,1,2,3,4,5,6};
+                });
         }
 
     }
