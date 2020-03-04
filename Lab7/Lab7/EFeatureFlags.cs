@@ -2,7 +2,7 @@ using System;
 
 namespace Lab7
 {
-    public enum EFeatureFlags: int
+    public enum EFeatureFlags : int
     {
         Default = 0,    // 초기화 상태값으로 사용 X
         Men = 1 << 0,
