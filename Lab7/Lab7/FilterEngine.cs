@@ -6,14 +6,14 @@ namespace Lab7
 {
     static class FilterEngine
     {
-        public static List<Frame> FilterFrames(List<Frame> list, EFeatures features)
+        public static List<Frame> FilterFrames(List<Frame> list, EFeatureFlags features)
         {
-            return list.FindAll(p => (p.Features & features) != EFeatures.Default);
+            return list.FindAll(p => (p.Features & features) != EFeatureFlags.Default);
         }
 
-        public static List<Frame> FilterOutFrames(List<Frame> list, EFeatures features)
+        public static List<Frame> FilterOutFrames(List<Frame> list, EFeatureFlags features)
         {
-            return list.FindAll(p => (p.Features & features) == EFeatures.Default);
+            return list.FindAll(p => (p.Features & features) == EFeatureFlags.Default);
         }
 
         public static List<Frame> Intersect(List<Frame> list1, List<Frame> list2)
@@ -21,7 +21,7 @@ namespace Lab7
             return list1.FindAll(p1 => list2.Find(p2 => p2.ID == p1.ID) != null ? true : false);
         }
 
-        public static List<int> GetSortKeys(List<Frame> list, List<EFeatures> featureList)
+        public static List<int> GetSortKeys(List<Frame> list, List<EFeatureFlags> featureList)
         {
             return list.ConvertAll(p => 
                 {
@@ -32,7 +32,7 @@ namespace Lab7
                     featureList.ForEach(
                         feature => 
                         {
-                            if ((feature & p.Features) != EFeatures.Default)
+                            if ((feature & p.Features) != EFeatureFlags.Default)
                             {
                                 nMatch++;
                                 nSortKey |= 1 << nPriority;

@@ -4,8 +4,8 @@ namespace Lab7
 {
     public class Frame 
     {
-        private EFeatures _Features;
-        public EFeatures Features
+        private EFeatureFlags _Features;
+        public EFeatureFlags Features
         {
             get { return _Features; }
         }
@@ -22,26 +22,26 @@ namespace Lab7
 
         public Frame(uint id, string name)
         {
-            this._Features = EFeatures.Default;
+            this._Features = EFeatureFlags.Default;
             this.ID = id;
             this.Name = name;
         }
         
-        public void ToggleFeatures(EFeatures feature) 
+        public void ToggleFeatures(EFeatureFlags feature) 
         {
             Console.WriteLine($"Features: {Features} ^ feature: {feature}");
             this._Features ^= feature;
             Console.WriteLine($"Result: {Features} ");
         }
 
-        public void TurnOnFeatures(EFeatures feature) 
+        public void TurnOnFeatures(EFeatureFlags feature) 
         {
             Console.WriteLine($"Features: {Features} ^ feature: {feature}");
             this._Features |= feature;
             Console.WriteLine($"Result: {Features} ");
         }
 
-        public void TurnOffFeatures(EFeatures feature)
+        public void TurnOffFeatures(EFeatureFlags feature)
         {
             Console.WriteLine($"Features: {Features} ^ feature: {feature}");
             this._Features &= ~feature;
