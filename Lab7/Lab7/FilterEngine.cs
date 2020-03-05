@@ -25,27 +25,32 @@ namespace Lab7
         {
             return list.ConvertAll(p => 
                 {
-                    int nMatch = -1;
-                    int nPriority = featureList.Count - 1;
+                    int nMatch = 0;
+                    int nPriority = featureList.Count;
                     int nSortKey = 0;
 
                     EFeatureFlags status = p.Features;
-
+                    Console.WriteLine($"__Start: {Convert.ToString((int)status, 2).PadLeft(32, '0')}, status: {status}" );
                     featureList.ForEach(
                         feature => 
                         {
-                            if ((feature & status) != EFeatureFlags.Default)
+                            if (p.Features == EFeatureFlags.Default)
+                            {
+                                nMatch++;
+                                nSortKey |= 1 << nPriority;
+                            }
+                            else if ((feature & status) != EFeatureFlags.Default)
                             {
                                 status ^= feature;
                                 nMatch++;
                                 nSortKey |= 1 << nPriority;
                             }
                             nPriority--;
-                            Console.WriteLine($"SortKey: {Convert.ToString(nSortKey, 2).PadLeft(32, '0')}, status: {feature}" );
+                            Console.WriteLine($"SortKey: {Convert.ToString(nSortKey, 2).PadLeft(32, '0')}, status: {Convert.ToString((int)feature, 2).PadLeft(32, '0')}" );
                             Console.WriteLine($"_status: {Convert.ToString((int)status, 2).PadLeft(32, '0')}, status: {status}" );
                         });
                     
-                    nSortKey |= nMatch == -1 ? 0 : (1 << featureList.Count + 1) * nMatch;
+                    nSortKey |= nMatch == 0 ? 0 : (1 << featureList.Count + nMatch);// * nMatch;
                     Console.WriteLine($"result5: {Convert.ToString(nSortKey, 2).PadLeft(32, '0')}");
                     Console.WriteLine($"p: {p.Name}, p Count: {featureList.Count}, nMatch: {nMatch}, sortKey: {nSortKey}");
                     return nSortKey;

@@ -90,22 +90,22 @@ namespace Lab7
 
             List<Frame> sortedFrames = sort(sortKeys, frames);
 
-            // frames[0].TurnOnFeatures(EFeatureFlags.Men | EFeatureFlags.Women | EFeatureFlags.Rectangle | EFeatureFlags.Blue);
-            // frames[1].TurnOnFeatures(EFeatureFlags.Women | EFeatureFlags.Black);
-            // frames[2].TurnOnFeatures(EFeatureFlags.Aviator | EFeatureFlags.Red | EFeatureFlags.Black);
-            // frames[3].TurnOnFeatures(EFeatureFlags.Round);
-            // frames[4].TurnOnFeatures(EFeatureFlags.Round | EFeatureFlags.Red);
-            // frames[5].TurnOnFeatures(EFeatureFlags.Men | EFeatureFlags.Blue | EFeatureFlags.Black);
-            // frames[6].TurnOnFeatures(EFeatureFlags.Black);
+            frames[0].TurnOnFeatures(EFeatureFlags.Men | EFeatureFlags.Women | EFeatureFlags.Rectangle | EFeatureFlags.Blue);
+            frames[1].TurnOnFeatures(EFeatureFlags.Women | EFeatureFlags.Black);
+            frames[2].TurnOnFeatures(EFeatureFlags.Aviator | EFeatureFlags.Red | EFeatureFlags.Black);
+            frames[3].TurnOnFeatures(EFeatureFlags.Round);
+            frames[4].TurnOnFeatures(EFeatureFlags.Round | EFeatureFlags.Red);
+            frames[5].TurnOnFeatures(EFeatureFlags.Men | EFeatureFlags.Blue | EFeatureFlags.Black);
+            frames[6].TurnOnFeatures(EFeatureFlags.Black);
 
             // Frame frame1 = new Frame(1, "Ray-Ban");
             // new Frame(2, "Joseph-Marc"),
-        //     new Frame(3, "Derek Cardigan"),
-        //     new Frame(4, "Randy Jackson"),
-        //     new Frame(5, "Evergreen"),
-        //     new Frame(6, "Emporio Armani"),
-        //     new Frame(7, "Carrera"),
-        //     new Frame(8, "Crocs")
+            // new Frame(3, "Derek Cardigan"),
+            // new Frame(4, "Randy Jackson"),
+            // new Frame(5, "Evergreen"),
+            // new Frame(6, "Emporio Armani"),
+            // new Frame(7, "Carrera"),
+            // new Frame(8, "Crocs")
 
             Debug.Assert(sortedFrames[0].ID == frames[2].ID);
             Debug.Assert(sortedFrames[1].ID == frames[0].ID);
@@ -127,8 +127,22 @@ namespace Lab7
             Debug.Assert(sortedFrames[4].ID == frames[2].ID || sortedFrames[4].ID == frames[5].ID || sortedFrames[4].ID == frames[6].ID);
             Debug.Assert(sortedFrames[5].ID == frames[3].ID || sortedFrames[5].ID == frames[4].ID);
             Debug.Assert(sortedFrames[6].ID == frames[3].ID || sortedFrames[6].ID == frames[4].ID);
+            // List<Frame> part = new List<Frame> {new Frame(8, "dddd")};
+            // List<int> sortKeys = FilterEngine.GetSortKeys(part, new List<EFeatureFlags> 
+            // { 
+            //     EFeatureFlags.Default
+            //     EFeatureFlags.Men,
+            //     EFeatureFlags.Women,
+            //     EFeatureFlags.Rectangle,
+            //     EFeatureFlags.Round,
+            //     EFeatureFlags.Aviator,
+            //     EFeatureFlags.Red,
+            //     EFeatureFlags.Blue,
+            //     EFeatureFlags.Black
+            // });
 
-            sortKeys = FilterEngine.GetSortKeys(frames, new List<EFeatureFlags> { EFeatureFlags.Aviator, EFeatureFlags.Black, EFeatureFlags.Women });
+            // Debug.Assert(sortKeys.Count == frames.Count);
+
         }
 
         private static List<Frame> sort(List<int> sortKeys, List<Frame> frames)
