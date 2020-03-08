@@ -30,7 +30,7 @@ namespace Lab7
                     int nSortKey = 0;
 
                     EFeatureFlags status = p.Features;
-                    Console.WriteLine($"__Start: {Convert.ToString((int)status, 2).PadLeft(32, '0')}, status: {status}" );
+                    // Console.WriteLine($"__Start: {Convert.ToString((int)status, 2).PadLeft(32, '0')}, status: {status}" );
                     featureList.ForEach(
                         feature => 
                         {
@@ -46,13 +46,13 @@ namespace Lab7
                                 nSortKey |= 1 << nPriority;
                             }
                             nPriority--;
-                            Console.WriteLine($"SortKey: {Convert.ToString(nSortKey, 2).PadLeft(32, '0')}, status: {Convert.ToString((int)feature, 2).PadLeft(32, '0')}" );
-                            Console.WriteLine($"_status: {Convert.ToString((int)status, 2).PadLeft(32, '0')}, status: {status}" );
+                            // Console.WriteLine($"SortKey: {Convert.ToString(nSortKey, 2).PadLeft(32, '0')}, status: {Convert.ToString((int)feature, 2).PadLeft(32, '0')}" );
+                            // Console.WriteLine($"_status: {Convert.ToString((int)status, 2).PadLeft(32, '0')}, status: {status}" );
                         });
                     
                     nSortKey |= nMatch == 0 ? 0 : (1 << featureList.Count + nMatch);// * nMatch;
-                    Console.WriteLine($"result5: {Convert.ToString(nSortKey, 2).PadLeft(32, '0')}");
-                    Console.WriteLine($"p: {p.Name}, p Count: {featureList.Count}, nMatch: {nMatch}, sortKey: {nSortKey}");
+                    // Console.WriteLine($"result5: {Convert.ToString(nSortKey, 2).PadLeft(32, '0')}");
+                    // Console.WriteLine($"p: {p.Name}, p Count: {featureList.Count}, nMatch: {nMatch}, sortKey: {nSortKey}");
                     return nSortKey;
                 });
         }
