@@ -44,7 +44,7 @@ namespace Lab8
 
             for (int i = 0; i < size; i++)
             {
-                identityMatrix[i,i] = 1;
+                identityMatrix[i, i] = 1;
             }
 
             return identityMatrix;
@@ -52,6 +52,11 @@ namespace Lab8
 
         static public int[] GetRowOrNull(int[,] matrix, int row)
         {
+            if (matrix.GetLength(0) <= row)
+            {
+                return null;
+            }
+            
             int[] array = new int[matrix.GetLength(1)];
 
             for (int i = 0; i < matrix.GetLength(1); i++)
@@ -64,6 +69,11 @@ namespace Lab8
 
         static public int[] GetColumnOrNull(int[,] matrix, int column)
         {
+            if (matrix.GetLength(1) <= column)
+            {
+                return null;
+            }
+
             int[] array = new int[matrix.GetLength(0)];
 
             for (int i = 0; i < matrix.GetLength(0); i++)
