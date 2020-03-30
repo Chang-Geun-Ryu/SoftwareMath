@@ -13,7 +13,7 @@ namespace Lab11
                 return null;
             }
 
-            List<Tuple<Tuple<int, int>, int>> table = new List<Tuple<Tuple<int, int>, int>> {};
+            List<Tuple<Tuple<int, int>, int>> table = new List<Tuple<Tuple<int, int>, int>> { };
 
             var numbers = new List<int>(data);
             int nBinSize = (int)Math.Ceiling((double)(numbers.Max() - numbers.Min()) / (double)maxBinCount);
