@@ -15,20 +15,19 @@ namespace Lab11
 
             List<Tuple<Tuple<int, int>, int>> table = new List<Tuple<Tuple<int, int>, int>> {};
 
-            var numbers = new List<int> (data);
+            var numbers = new List<int>(data);
             int nBinSize = (int)Math.Ceiling((double)(numbers.Max() - numbers.Min()) / (double)maxBinCount);
             nBinSize = nBinSize == 0 ? 1 : nBinSize;
 
-            while(numbers.Min() + nBinSize * maxBinCount <= numbers.Max())
+            while (numbers.Min() + nBinSize * maxBinCount <= numbers.Max())
             {
                 Console.WriteLine("nBinSize: {0}", nBinSize);
                 nBinSize++;
-                
             }
 
-            Tuple<int, int> range = new Tuple<int, int> (numbers.Min(), numbers.Min() + nBinSize);
+            Tuple<int, int> range = new Tuple<int, int>(numbers.Min(), numbers.Min() + nBinSize);
 
-            for (int i = 0; i < maxBinCount; i ++)
+            for (int i = 0; i < maxBinCount; i++)
             {
                 int nCount = numbers.FindAll(p => (p >= range.Item1) && (p < range.Item2)).Count;
                 table.Add(Tuple.Create(range, nCount));
@@ -36,7 +35,7 @@ namespace Lab11
                 range = Tuple.Create(range.Item1 + nBinSize,
                                     range.Item2 + nBinSize);
 
-                int nCount2 = numbers.FindAll(p => p > range.Item1).Count;
+                int nCount2 = numbers.FindAll(p => p >= range.Item1).Count;
 
                 if (nCount2 == 0) 
                 {
