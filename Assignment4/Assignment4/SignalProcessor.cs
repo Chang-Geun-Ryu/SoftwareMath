@@ -7,6 +7,19 @@ namespace Assignment4
     {
         public static double[] GetGaussianFilter1D(double sigma)
         {
+            var size = (int)(sigma * 6d);
+            size = size % 2 == 0 ? size++; size;
+            var center = size / 2;
+            double[] valueArray = new double[] { };
+
+            for (int i = 0; i < size; i++)
+            {
+                var pos = -Math.Pow(Math.Abs(center - i), 2);
+                double square = pos / (2 * sigma * sigma)
+                valueArray[i] = (1d / (sigma * Math.Sqrt(Math.PI * 2))) * Math.Pow(Math.E, square);
+            }
+
+
             return null;
         }
 
