@@ -1,4 +1,8 @@
 ﻿using System;
+using System.Diagnostics;
+using System.Drawing;
+using System.Drawing.Imaging;
+using System.IO;
 
 namespace Assignment4
 {
@@ -6,11 +10,16 @@ namespace Assignment4
     {
         static void Main(string[] args)
         {
-            SignalProcessor.GetGaussianFilter1D(0.5); // [ 0.107981933026376, 0.797884560802865, 0.107981933026376 ]
-
-            SignalProcessor.GetGaussianFilter1D(1); // [0.00443184841193801, 0.0539909665131881, 0.241970724519143, 0.398942280401433, 0.241970724519143, 0.0539909665131881, 0.00443184841193801]
-
-            Console.WriteLine("Hello World!");
+            using (FileStream fs = File.OpenRead("image.png"))
+            using (Bitmap image = new Bitmap(fs))
+            using (Bitmap newImage = SignalProcessor.ConvolveImage(image, new double[,] {
+                    { 1 / 9.0, 1 / 9.0, 1 / 9.0 },
+                    { 1 / 9.0, 1 / 9.0, 1 / 9.0 },
+                    { 1 / 9.0, 1 / 9.0, 1 / 9.0 }
+                }))
+            {
+                newImage.Save("image_box_filtered.png", ImageFormat.Png); // 결과를 image_box_filtered.png 파일에 저장
+            }
         }
     }
 }
