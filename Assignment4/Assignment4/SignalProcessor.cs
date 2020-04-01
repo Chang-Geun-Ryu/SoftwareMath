@@ -8,16 +8,16 @@ namespace Assignment4
     {
         public static double[] GetGaussianFilter1D(double sigma)
         {
-            var size = (int)(sigma * 6.0);
+            int size = (int)(sigma * 6.0);
             size = size % 2 == 0 ? size + 1 : size;
-            var center = size / 2;
+            int center = size / 2;
             double[] valueArray = new double[size];
 
             for (int i = 0; i < size; i++)
             {
                 var pos = -Math.Pow(Math.Abs(center - i), 2);
                 double square = (double)pos / (2.0 * sigma * sigma);
-                valueArray[i] = (1.0 / (sigma * Math.Sqrt(Math.PI * 2))) * Math.Pow(Math.E, square);
+                valueArray[i] = (1.0 / (sigma * Math.Sqrt(Math.PI * 2.0))) * Math.Pow(Math.E, square);
             }
 
             return valueArray;
