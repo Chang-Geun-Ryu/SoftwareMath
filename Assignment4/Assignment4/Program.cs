@@ -47,6 +47,10 @@ namespace Assignment4
             double[] signal = new double[] { 10, 50, 60, 10, 20, 40, 30 };
             filter1D = new double[] { 0.15, 0.3, 0.15 };
 
+            SignalProcessor.Convolve1D(signal, new double[] {1, 0, 0});
+            SignalProcessor.Convolve1D(signal, new double[] {0, 0, 1});
+            SignalProcessor.Convolve1D(signal, new double[] {0, 1, 0});
+
             double[] result1D = SignalProcessor.Convolve1D(signal, filter1D);
 
             assertArrayEqual(new double[] { 10.5, 25.5, 27, 15, 13.5, 19.5, 15 }, result1D, double.Epsilon);

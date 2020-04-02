@@ -31,24 +31,6 @@ namespace Assignment4
 
         public static double[] GetGaussianFilter1D(double sigma)
         {
-            // int size = (int)(sigma * 6.0);
-            // if (size % 2 == 0)
-            // {
-            //     size += 1;
-            //     Console.WriteLine("size:{0} (+1), sigma:{1} X 6 = {2}", size, sigma, sigma * 6.0);
-            // }
-            // else if ((double)size == (sigma * 6.0))
-            // {
-            //     // size += 2;
-            //     Console.WriteLine("size:{0} (+0), sigma:{1} X 6 = {2}", size, sigma, sigma * 6.0);
-            // }
-            // else
-            // {
-            //     size += 2;
-            //     Console.WriteLine("size:{0} (+2), sigma:{1} X 6 = {2}", size, sigma, sigma * 6.0);
-            // }
-            // size = size % 2 == 0 ? size + 1 : size + 2;
-            // int center = size / 2;
             int size = getArraySize(sigma);
             double[] valueArray = new double[size];
             int index = 0;
@@ -67,17 +49,18 @@ namespace Assignment4
         {
             double[] resultArr = new double[signal.Length];
             var center = filter.Length / 2;
-
-            Array.Reverse(filter);
+            var reverse = new double[filter.Length];
+            Array.Copy(filter, reverse, filter.Length);
+            Array.Reverse(reverse);
 
             for (int i = 0; i < resultArr.Length; i++)
             {
                 double sum = 0d;
-                for (int j = 0; j < filter.Length; j++)
+                for (int j = 0; j < reverse.Length; j++)
                 {
                     int index = i - (center - j);
                     double signalValue = index >= 0 && index < resultArr.Length ? signal[index] : 0;
-                    sum += signalValue * filter[j];
+                    sum += signalValue * reverse[j];
                 }
                 resultArr[i] = sum;
             }
@@ -97,7 +80,7 @@ namespace Assignment4
             {
                 for (int j = 0; j < size; j++)
                 {
-                    var pos = -(Math.Pow(Math.Abs(center - i), 2) +  Math.Pow(Math.Abs(center - j), 2));
+                    var pos = -(Math.Pow(Math.Abs(center - i), 2) + Math.Pow(Math.Abs(center - j), 2));
                     double square = (double)pos / (2.0 * sigma * sigma);
                     valueArray[i, j] = (1.0 / (2.0 * Math.PI * sigma * sigma)) * Math.Pow(Math.E, square);
                 }
@@ -169,9 +152,9 @@ namespace Assignment4
 
             for (int w = 0; w < filter.GetLength(1); w++)
             {
-                for(int h = 0; h < filter.GetLength(0); h++)
+                for (int h = 0; h < filter.GetLength(0); h++)
                 {
-                    flipArr[w, h] = filter[filter.GetLength(1) - 1 - w,filter.GetLength(0) - 1 - h];
+                    flipArr[w, h] = filter[filter.GetLength(1) - 1 - w, filter.GetLength(0) - 1 - h];
                 }
             }
 
