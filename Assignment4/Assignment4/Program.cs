@@ -110,8 +110,8 @@ namespace Assignment4
             using (Bitmap expected = new Bitmap(fs2))
             using (Bitmap newImage = SignalProcessor.ConvolveImage(image, new double[,] {
                     { 0, 0, 0 },
-                    { 1, 0, 0 },
-                    { 0, 0, 0 }
+                    { 0, 0, 0 },
+                    { 0, 1, 0 }
                 }))
             {
                 newImage.Save($"{Path.GetFileNameWithoutExtension(IMAGE_FILE_NAME)}_shift_left.png", ImageFormat.Png);
