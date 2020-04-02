@@ -15,6 +15,9 @@ namespace Assignment4
             const string IMAGE_FILE_NAME = "earth.png";
 
             var test = SignalProcessor.GetGaussianFilter1D(0.5);
+            SignalProcessor.GetGaussianFilter1D(0.21);
+            SignalProcessor.GetGaussianFilter1D(0.2);
+            SignalProcessor.GetGaussianFilter1D(0.1);
 
             #region 1D_GAUSSIAN_FILTER 
             double[] filter1D = SignalProcessor.GetGaussianFilter1D(0.5);
@@ -80,6 +83,8 @@ namespace Assignment4
                 { 0.0116600978601128, 0.0861571172073945, 0.0116600978601128 }
             }, filter2D, 0.00001);
 
+            filter2D = SignalProcessor.GetGaussianFilter2D(1.5);
+            filter2D = SignalProcessor.GetGaussianFilter2D(2);
             filter2D = SignalProcessor.GetGaussianFilter2D(1);
 
             assertMatrixEqual(new double[7, 7]

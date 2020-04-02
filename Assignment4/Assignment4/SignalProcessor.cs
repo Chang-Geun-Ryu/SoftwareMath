@@ -6,18 +6,58 @@ namespace Assignment4
 {
     public static class SignalProcessor
     {
-        public static double[] GetGaussianFilter1D(double sigma)
+        private static int getArraySize(double sigma)
         {
             int size = (int)(sigma * 6.0);
-            size = size % 2 == 0 ? size + 1 : size;
-            int center = size / 2;
-            double[] valueArray = new double[size];
-
-            for (int i = 0; i < size; i++)
+            if (size % 2 == 0)
             {
-                var pos = -Math.Pow(Math.Abs(center - i), 2);
-                double square = (double)pos / (2.0 * sigma * sigma);
-                valueArray[i] = (1.0 / (sigma * Math.Sqrt(Math.PI * 2.0))) * Math.Pow(Math.E, square);
+                size += 1;
+                Console.WriteLine("size:{0} (+1), sigma:{1} X 6 = {2}", size, sigma, sigma * 6.0);
+            }
+            else if ((double)size == (sigma * 6.0))
+            {
+                // size += 2;
+                Console.WriteLine("size:{0} (+0), sigma:{1} X 6 = {2}", size, sigma, sigma * 6.0);
+            }
+            else
+            {
+                size += 2;
+                Console.WriteLine("size:{0} (+2), sigma:{1} X 6 = {2}", size, sigma, sigma * 6.0);
+            }
+
+            return size;
+        }
+
+
+        public static double[] GetGaussianFilter1D(double sigma)
+        {
+            // int size = (int)(sigma * 6.0);
+            // if (size % 2 == 0)
+            // {
+            //     size += 1;
+            //     Console.WriteLine("size:{0} (+1), sigma:{1} X 6 = {2}", size, sigma, sigma * 6.0);
+            // }
+            // else if ((double)size == (sigma * 6.0))
+            // {
+            //     // size += 2;
+            //     Console.WriteLine("size:{0} (+0), sigma:{1} X 6 = {2}", size, sigma, sigma * 6.0);
+            // }
+            // else
+            // {
+            //     size += 2;
+            //     Console.WriteLine("size:{0} (+2), sigma:{1} X 6 = {2}", size, sigma, sigma * 6.0);
+            // }
+            // size = size % 2 == 0 ? size + 1 : size + 2;
+            // int center = size / 2;
+            int size = getArraySize(sigma);
+            double[] valueArray = new double[size];
+            int index = 0;
+            for (int i = -size / 2; i <= size / 2; i++)
+            {
+                // double pos = -Math.Pow(Math.Abs(center - i), 2);
+                double pos = -Math.Pow(i, 2);
+                double square = pos / (2.0 * sigma * sigma);
+                valueArray[index++] = (1.0 / (sigma * Math.Sqrt(Math.PI * 2.0))) * Math.Pow(Math.E, square);
             }
 
             return valueArray;
@@ -47,8 +87,9 @@ namespace Assignment4
 
         public static double[,] GetGaussianFilter2D(double sigma)
         {
-            var size = (int)(sigma * 6.0);
-            size = size % 2 == 0 ? size + 1 : size;
+            // var size = (int)(sigma * 6.0);
+            // size = size % 2 == 0 ? size + 1 : size;
+            int size = getArraySize(sigma);
             var center = size / 2;
             double[,] valueArray = new double[size, size];
 
