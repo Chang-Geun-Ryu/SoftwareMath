@@ -93,17 +93,69 @@ namespace Assignment4
         {
             double[,] flipArr = flipMatrix(filter);
 
+            Bitmap result = new Bitmap(bitmap);
+
+            int[,] array = new int[bitmap.Width, bitmap.Height];
+            int[,] resultArray = new int[bitmap.Width, bitmap.Height];
+
+            int index = 0;
+            for (int i = 0; i < array.GetLength(0); i++)
+            {
+                for (int j = 0; j < array.GetLength(1); j++)
+                {
+                    array[i, j] = index++;
+                    resultArray[i, j] = 0;
+                }
+            }
+
             for (int w = 0; w < bitmap.Width; w++)
             {
                 for (int h = 0; h < bitmap.Height; h++)
                 {
                     Color color = getColorMatrix(bitmap, flipArr, w, h);
                     
-                    bitmap.SetPixel(w, h, color);
+                    result.SetPixel(w, h, color);
+
+                    resultArray[w, h] = test(array, flipArr, w, h);
                 }
             }
 
-            return bitmap;
+            return result;
+        }
+
+        private static int test(int[,] array, double[,] filter, int posX, int posY)
+        {
+
+            int centerX = filter.GetLength(0) / 2;
+            int centerY = filter.GetLength(1) / 2;
+            
+            int r = 0;
+
+            for (int w = 0; w < filter.GetLength(0); w++)
+            {
+                for (int h = 0; h < filter.GetLength(1); h++)
+                {
+                    int indexX = posX - (centerX - w);
+                    int indexY = posY - (centerY - h);
+
+                    int value = 0;
+
+                    if (indexX < 0 || indexY < 0 || indexX >= array.GetLength(0) || indexY >= array.GetLength(1))
+                    {
+                        value = 0;
+                    }
+                    else 
+                    {
+                        value = array[indexX, indexY];
+                    }
+
+                    // Console.WriteLine("({0},{1}: {2})", indexX, indexY, colorArr[w, h]);
+
+                    r += (int)((double)value * filter[w, h]);
+                }
+            }
+
+            return r;
         }
 
         private static Color getColorMatrix(Bitmap bitmap, double[,] filter, int posX, int posY)
@@ -141,8 +193,25 @@ namespace Assignment4
                 }
             }
 
+            r = getRGBRange(r);
+            b = getRGBRange(b);
+            g = getRGBRange(g);
+            
             Color resultColor = Color.FromArgb(r, g, b);
             return resultColor;
+        }
+
+        private static int getRGBRange(int value)
+        {
+            if (value > 255)
+            {
+                value = 255;
+            } else if (value < 0) 
+            {
+                value = 0;
+            }
+
+            return value;
         }
 
 
