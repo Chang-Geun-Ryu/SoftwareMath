@@ -149,11 +149,11 @@ namespace Assignment4
                         color = bitmap.GetPixel(indexX, indexY);
                     }
 
-                    // Console.WriteLine("({0},{1}: {2})", indexX, indexY, colorArr[w, h]);
+                    // Console.WriteLine("({0},{1}: {2})", indexX, indexY, cololsrArr[w, h]);
 
-                    r += (int)((double)color.R * filter[j, i]);
-                    g += (int)((double)color.G * filter[j, i]);
-                    b += (int)((double)color.B * filter[j, i]);
+                    r += (int)((double)color.R * filter[i, j]);
+                    g += (int)((double)color.G * filter[i, j]);
+                    b += (int)((double)color.B * filter[i, j]);
                 }
             }
 
@@ -183,6 +183,14 @@ namespace Assignment4
         private static double[,] flipMatrix(double[,] filter)
         {
             double[,] flipArr = new double[filter.GetLength(1), filter.GetLength(0)];
+
+            for (int w = 0; w < filter.GetLength(1); w++)
+            {
+                for (int h = 0; h < filter.GetLength(0); h++)
+                {
+                    flipArr[w, h] = filter[h, w];
+                }
+            }
 
             for (int w = 0; w < filter.GetLength(1); w++)
             {
