@@ -98,7 +98,6 @@ namespace Assignment4
             int[,] array = new int[bitmap.Width, bitmap.Height];
             int[,] resultArray = new int[bitmap.Width, bitmap.Height];
 
-            int index = 0;
             for (int i = 0; i < array.GetLength(0); i++)
             {
                 for (int j = 0; j < array.GetLength(1); j++)
@@ -128,9 +127,9 @@ namespace Assignment4
             int centerX = filter.GetLength(0) / 2;
             int centerY = filter.GetLength(1) / 2;
             
-            int r = 0;
-            int g = 0;
-            int b = 0;
+            double r = 0;
+            double g = 0;
+            double b = 0;
 
             for (int i = 0; i < filter.GetLength(0); i++)
             {
@@ -151,9 +150,9 @@ namespace Assignment4
 
                     // Console.WriteLine("({0},{1}: {2})", indexX, indexY, cololsrArr[w, h]);
 
-                    r += (int)((double)color.R * filter[i, j]);
-                    g += (int)((double)color.G * filter[i, j]);
-                    b += (int)((double)color.B * filter[i, j]);
+                    r += (double)color.R * filter[i, j];
+                    g += (double)color.G * filter[i, j];
+                    b += (double)color.B * filter[i, j];
                 }
             }
 
@@ -161,19 +160,19 @@ namespace Assignment4
             b = getRGBRange(b);
             g = getRGBRange(g);
             
-            Color resultColor = Color.FromArgb(r, g, b);
+            Color resultColor = Color.FromArgb((int)r, (int)g, (int)b);
             return resultColor;
         }
 
-        private static int getRGBRange(int value)
+        private static double getRGBRange(double value)
         {
-            if (value > 255)
+            if (value > 255d)
             {
-                value = 255;
+                value = 255d;
             } 
-            else if (value < 0) 
+            else if (value < 0d) 
             {
-                value = 0;
+                value = 0d;
             }
 
             return value;
