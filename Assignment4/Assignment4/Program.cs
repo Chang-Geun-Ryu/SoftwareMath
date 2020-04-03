@@ -49,7 +49,6 @@ namespace Assignment4
 
             SignalProcessor.Convolve1D(signal, new double[] {1, 0, 0});
             SignalProcessor.Convolve1D(signal, new double[] {0, 0, 1});
-            SignalProcessor.Convolve1D(signal, new double[] {0, 1, 0});
 
             double[] result1D = SignalProcessor.Convolve1D(signal, filter1D);
 

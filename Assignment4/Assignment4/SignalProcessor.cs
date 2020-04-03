@@ -103,7 +103,7 @@ namespace Assignment4
             {
                 for (int j = 0; j < array.GetLength(1); j++)
                 {
-                    array[i, j] = index++;
+                    array[i, j] = 1;
                     resultArray[i, j] = 0;
                 }
             }
@@ -112,7 +112,7 @@ namespace Assignment4
             {
                 for (int h = 0; h < bitmap.Height; h++)
                 {
-                    Color color = getColorMatrix(bitmap, flipArr, w, h);
+                    Color color = getColorMatrix(bitmap, flipArr, h, w);
                     
                     result.SetPixel(w, h, color);
 
@@ -125,7 +125,6 @@ namespace Assignment4
 
         private static int test(int[,] array, double[,] filter, int posX, int posY)
         {
-
             int centerX = filter.GetLength(0) / 2;
             int centerY = filter.GetLength(1) / 2;
             
@@ -160,8 +159,6 @@ namespace Assignment4
 
         private static Color getColorMatrix(Bitmap bitmap, double[,] filter, int posX, int posY)
         {
-            Color[,] colorArr = new Color[filter.GetLength(1), filter.GetLength(0)];
-
             int centerX = filter.GetLength(0) / 2;
             int centerY = filter.GetLength(1) / 2;
             
@@ -175,21 +172,22 @@ namespace Assignment4
                 {
                     int indexX = posX - (centerX - w);
                     int indexY = posY - (centerY - h);
+                    Color color;
 
                     if (indexX < 0 || indexY < 0 || indexX >= bitmap.Width || indexY >= bitmap.Height)
                     {
-                        colorArr[w, h] = Color.Black;
+                        color = Color.Black;
                     }
                     else 
                     {
-                        colorArr[w, h] = bitmap.GetPixel(indexX, indexY);
+                        color = bitmap.GetPixel(indexX, indexY);
                     }
 
                     // Console.WriteLine("({0},{1}: {2})", indexX, indexY, colorArr[w, h]);
 
-                    r += (int)((double)colorArr[w, h].R * filter[w, h]);
-                    g += (int)((double)colorArr[w, h].G * filter[w, h]);
-                    b += (int)((double)colorArr[w, h].B * filter[w, h]);
+                    r += (int)((double)color.R * filter[w, h]);
+                    g += (int)((double)color.G * filter[w, h]);
+                    b += (int)((double)color.B * filter[w, h]);
                 }
             }
 
