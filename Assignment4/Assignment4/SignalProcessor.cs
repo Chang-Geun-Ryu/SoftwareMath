@@ -112,7 +112,7 @@ namespace Assignment4
             {
                 for (int h = 0; h < bitmap.Height; h++)
                 {
-                    Color color = getColorMatrix(bitmap, flipArr, h, w);
+                    Color color = getColorMatrix(bitmap, flipArr, w, h);
                     
                     result.SetPixel(w, h, color);
 
@@ -121,40 +121,6 @@ namespace Assignment4
             }
 
             return result;
-        }
-
-        private static int test(int[,] array, double[,] filter, int posX, int posY)
-        {
-            int centerX = filter.GetLength(0) / 2;
-            int centerY = filter.GetLength(1) / 2;
-            
-            int r = 0;
-
-            for (int w = 0; w < filter.GetLength(0); w++)
-            {
-                for (int h = 0; h < filter.GetLength(1); h++)
-                {
-                    int indexX = posX - (centerX - w);
-                    int indexY = posY - (centerY - h);
-
-                    int value = 0;
-
-                    if (indexX < 0 || indexY < 0 || indexX >= array.GetLength(0) || indexY >= array.GetLength(1))
-                    {
-                        value = 0;
-                    }
-                    else 
-                    {
-                        value = array[indexX, indexY];
-                    }
-
-                    // Console.WriteLine("({0},{1}: {2})", indexX, indexY, colorArr[w, h]);
-
-                    r += (int)((double)value * filter[w, h]);
-                }
-            }
-
-            return r;
         }
 
         private static Color getColorMatrix(Bitmap bitmap, double[,] filter, int posX, int posY)
@@ -166,12 +132,12 @@ namespace Assignment4
             int g = 0;
             int b = 0;
 
-            for (int w = 0; w < filter.GetLength(0); w++)
+            for (int i = 0; i < filter.GetLength(0); i++)
             {
-                for (int h = 0; h < filter.GetLength(1); h++)
+                for (int j = 0; j < filter.GetLength(1); j++)
                 {
-                    int indexX = posX - (centerX - w);
-                    int indexY = posY - (centerY - h);
+                    int indexX = posX - (centerX - j);
+                    int indexY = posY - (centerY - i);
                     Color color;
 
                     if (indexX < 0 || indexY < 0 || indexX >= bitmap.Width || indexY >= bitmap.Height)
@@ -185,9 +151,9 @@ namespace Assignment4
 
                     // Console.WriteLine("({0},{1}: {2})", indexX, indexY, colorArr[w, h]);
 
-                    r += (int)((double)color.R * filter[w, h]);
-                    g += (int)((double)color.G * filter[w, h]);
-                    b += (int)((double)color.B * filter[w, h]);
+                    r += (int)((double)color.R * filter[j, i]);
+                    g += (int)((double)color.G * filter[j, i]);
+                    b += (int)((double)color.B * filter[j, i]);
                 }
             }
 
@@ -227,6 +193,40 @@ namespace Assignment4
             }
 
             return flipArr;
+        }
+
+        private static int test(int[,] array, double[,] filter, int posX, int posY)
+        {
+            int centerX = filter.GetLength(0) / 2;
+            int centerY = filter.GetLength(1) / 2;
+            
+            int r = 0;
+
+            for (int w = 0; w < filter.GetLength(0); w++)
+            {
+                for (int h = 0; h < filter.GetLength(1); h++)
+                {
+                    int indexX = posX - (centerX - w);
+                    int indexY = posY - (centerY - h);
+
+                    int value = 0;
+
+                    if (indexX < 0 || indexY < 0 || indexX >= array.GetLength(0) || indexY >= array.GetLength(1))
+                    {
+                        value = 0;
+                    }
+                    else 
+                    {
+                        value = array[indexX, indexY];
+                    }
+
+                    // Console.WriteLine("({0},{1}: {2})", indexX, indexY, colorArr[w, h]);
+
+                    r += (int)((double)value * filter[w, h]);
+                }
+            }
+
+            return r;
         }
     }
 }
