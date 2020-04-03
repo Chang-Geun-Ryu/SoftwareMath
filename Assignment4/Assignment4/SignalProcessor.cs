@@ -135,8 +135,8 @@ namespace Assignment4
             {
                 for (int j = 0; j < filter.GetLength(1); j++)
                 {
-                    int indexX = posX - (centerX - j);
-                    int indexY = posY - (centerY - i);
+                    int indexX = posX - (centerX - i);
+                    int indexY = posY - (centerY - j);
                     Color color;
 
                     if (indexX < 0 || indexY < 0 || indexX >= bitmap.Width || indexY >= bitmap.Height)
