@@ -183,12 +183,13 @@ namespace Assignment4
         private static double[,] flipMatrix(double[,] filter)
         {
             double[,] flipArr = new double[filter.GetLength(1), filter.GetLength(0)];
+            double[,] flipArrCopy = new double[filter.GetLength(1), filter.GetLength(0)];
 
             for (int w = 0; w < filter.GetLength(1); w++)
             {
                 for (int h = 0; h < filter.GetLength(0); h++)
                 {
-                    flipArr[w, h] = filter[h, w];
+                    flipArrCopy[w, h] = filter[h, w];
                 }
             }
 
@@ -196,7 +197,7 @@ namespace Assignment4
             {
                 for (int h = 0; h < filter.GetLength(0); h++)
                 {
-                    flipArr[w, h] = filter[filter.GetLength(1) - 1 - w, filter.GetLength(0) - 1 - h];
+                    flipArr[w, h] = flipArrCopy[filter.GetLength(1) - 1 - w, filter.GetLength(0) - 1 - h];
                 }
             }
 
