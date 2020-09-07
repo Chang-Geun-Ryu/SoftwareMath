@@ -1,25 +1,25 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.28307.489
+VisualStudioVersion = 15.0.28307.271
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lab3", "Lab3\Lab3.csproj", "{E3A74BF7-D5DB-47FC-9975-61766C770A1C}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Lab3", "Lab3.vcxproj", "{EF16EE80-E685-4903-AF90-91429C089EAF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
-		Debug|Any CPU = Debug|Any CPU
-		Release|Any CPU = Release|Any CPU
+		Debug|x86 = Debug|x86
+		Release|x86 = Release|x86
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{E3A74BF7-D5DB-47FC-9975-61766C770A1C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{E3A74BF7-D5DB-47FC-9975-61766C770A1C}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{E3A74BF7-D5DB-47FC-9975-61766C770A1C}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{E3A74BF7-D5DB-47FC-9975-61766C770A1C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EF16EE80-E685-4903-AF90-91429C089EAF}.Debug|x86.ActiveCfg = Debug|Win32
+		{EF16EE80-E685-4903-AF90-91429C089EAF}.Debug|x86.Build.0 = Debug|Win32
+		{EF16EE80-E685-4903-AF90-91429C089EAF}.Release|x86.ActiveCfg = Release|Win32
+		{EF16EE80-E685-4903-AF90-91429C089EAF}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {B929C12E-7A03-47CD-95AC-E1B339207A4B}
+		SolutionGuid = {C8255FD6-F832-4CCA-B2E8-301ADF6CDFC0}
 	EndGlobalSection
 EndGlobal

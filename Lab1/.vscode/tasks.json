@@ -1,0 +1,27 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "buildc",
+      "type": "shell",
+      "command": "gcc",
+      "args": [
+        "-g",
+        "*.c",
+        "-o",
+        "a.out"
+      ]
+    },
+    {
+      "label": "buildcpp",
+      "type": "shell",
+      "command": "g++",
+      "args": [
+        "-g",
+        "*.cpp",
+        "-o",
+        "acpp.out"
+      ]
+    }
+  ]
+}

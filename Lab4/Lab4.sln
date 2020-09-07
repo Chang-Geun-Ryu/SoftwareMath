@@ -1,25 +1,25 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.28307.489
+VisualStudioVersion = 15.0.28307.271
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lab4", "Lab4\Lab4.csproj", "{488532D5-8F5C-44F3-9ED7-6F8E2083C8F6}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Lab4", "Lab4.vcxproj", "{8D92DCD9-6A4C-4448-AE39-7E439D26A6EB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
-		Debug|Any CPU = Debug|Any CPU
-		Release|Any CPU = Release|Any CPU
+		Debug|x86 = Debug|x86
+		Release|x86 = Release|x86
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{488532D5-8F5C-44F3-9ED7-6F8E2083C8F6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{488532D5-8F5C-44F3-9ED7-6F8E2083C8F6}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{488532D5-8F5C-44F3-9ED7-6F8E2083C8F6}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{488532D5-8F5C-44F3-9ED7-6F8E2083C8F6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8D92DCD9-6A4C-4448-AE39-7E439D26A6EB}.Debug|x86.ActiveCfg = Debug|Win32
+		{8D92DCD9-6A4C-4448-AE39-7E439D26A6EB}.Debug|x86.Build.0 = Debug|Win32
+		{8D92DCD9-6A4C-4448-AE39-7E439D26A6EB}.Release|x86.ActiveCfg = Release|Win32
+		{8D92DCD9-6A4C-4448-AE39-7E439D26A6EB}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {B7A08E17-BBF3-4A05-921E-1F98FE861183}
+		SolutionGuid = {02147DD7-7905-4172-8727-D4C84A3C8986}
 	EndGlobalSection
 EndGlobal
